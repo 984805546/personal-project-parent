@@ -7,24 +7,24 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="uri" column="uri"/>
-        <result property="parent" column="parent"/>
+<!--        <result property="parent" column="parent"/>-->
         <result property="pid" column="pid"/>
     </resultMap>
 
     <select id="findPrivilege" resultMap="privilege">
-        select id, name, parent, pid, uri
+        select id, name, pid, uri
         from privilege
         where id = #{id}
     </select>
 
     <select id="getAll" resultMap="privilege">
-        select id, name, parent, pid, uri
+        select id, name, pid, uri
         from privilege
     </select>
 
 
     <select id="getPrivileges" resultMap="privilege">
-        select p.id, p.name, p.parent, p.pid, p.uri
+        select p.id, p.name, p.pid, p.uri
         from privilege p
         inner join role_privilege rp on p.id = rp.privilege_id
         where rp.role_id = #{roleId}

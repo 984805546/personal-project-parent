@@ -79,8 +79,8 @@
 <script src="/static/admin/js/auth.js"></script>
 <script>
     Auth.init({
-        login_url: '/admin/dologin',
-        forgot_url: '/admin/forgot'
+        login_url: '/user/doLogin',
+        forgot_url: '/user/forgot'
     });
 </script>
 </body>

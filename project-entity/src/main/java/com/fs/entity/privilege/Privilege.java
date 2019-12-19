@@ -16,6 +16,6 @@ public class Privilege {
     private String id;
     private String name;
     private String uri;
-    private Boolean parent;
+//    private Boolean parent;
     private Integer pid;
 }

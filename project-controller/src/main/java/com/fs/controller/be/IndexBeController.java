@@ -6,7 +6,6 @@ package com.fs.controller.be;/**
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -18,6 +17,20 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/be")
 public class IndexBeController {
+    @RequestMapping("/test")
+    public String test() {
+        return "index";
+    }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "be/login";
+    }
+
+    @RequestMapping("/noPermission")
+    public String noPermission(){
+        return "be/noPermission";
+    }
 
     @RequestMapping("/index")
     public String index() {

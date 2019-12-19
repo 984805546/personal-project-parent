@@ -15,25 +15,20 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @author: fs
  * @create: 2019/12/03 11:42 
  */
-@Controller
-@RequestMapping("/admin")
-public class AdminController {
-    @Autowired
-    private AdminService adminService;
-
-    @RequestMapping("/login")
-    public String login() {
-        return "be/adminLogin";
-    }
-
-    @RequestMapping("/dologin")
-    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
-        System.out.println(username+" "+password);
-        return "/be/adminLogin";
-    }
-
-    @RequestMapping("/forgot")
-    public String forgot(@RequestParam("username") String username, @RequestParam("password") String password) {
-        return "/be/adminLogin";
-    }
-}
+//@Controller
+//@RequestMapping("/admin")
+//public class AdminController {
+//    @Autowired
+//    private AdminService adminService;
+//
+//    @RequestMapping("/dologin")
+//    public String doLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
+//        System.out.println(username+" "+password);
+//        return "be/login";
+//    }
+//
+//    @RequestMapping("/forgot")
+//    public String forgot(@RequestParam("username") String username, @RequestParam("password") String password) {
+//        return "be/login";
+//    }
+//}

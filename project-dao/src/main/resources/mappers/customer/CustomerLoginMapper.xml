@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.customer.CustomerLoginDao">
+    <resultMap id="customer" type="com.fs.entity.customer.CustomerLogin">
+        <id property="customerId" column="customerId"/>
+        <result property="loginUsername" column="loginUsername"/>
+        <result property="password" column="password"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+    </resultMap>
+    <select id="getAll" resultMap="customer">
+        select customerId,loginUsername,password,modifiedTime
+        from customer_login
+        order by customerId
+    </select>
+
+    <select id="getPageHelper" resultMap="customer">
+        select customerId,loginUsername,password,modifiedTime
+        from customer_login
+        order by customerId
+    </select>
+
+    <select id="getByName" resultMap="customer">
+        <bind name="Name" value="'%' + _parameter.param3 + '%'"/>
+        select customerId,loginUsername,password,modifiedTime
+        from customer_login
+        where loginUsername like #{Name}
+        order by customerId
+    </select>
+
+    <select id="getById" resultMap="customer">
+        select customerId,loginUsername,password,modifiedTime
+        from customer_login
+        where customerId = #{customerId}
+    </select>
+
+    <insert id="insert" >
+        insert into customer_login(loginUsername,password,modifiedTime)
+        values(#{loginUsername},#{password},now())
+    </insert>
+
+    <delete id="delete">
+        delete from customer_login where customerId = #{customerId}
+    </delete>
+
+    <update id="update">
+        update customer_login
+        set loginUsername = #{loginUsername},password = #{password},modifiedTime = now()
+        where customerId = #{customerId}
+    </update>
+</mapper>

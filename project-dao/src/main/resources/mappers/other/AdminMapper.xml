@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.other.AdminDao">
+    <resultMap id="admin" type="com.fs.entity.other.Admin">
+        <id property="adminId" column="adminId"/>
+        <result property="adminUsername" column="adminUsername"/>
+        <result property="adminPassword" column="adminPassword"/>
+    </resultMap>
+    <select id="getAll" resultMap="admin">
+        select adminId, adminUsername, adminPassword
+        from admin
+        order by adminId
+    </select>
+
+    <select id="getById" resultMap="admin">
+        select adminId, adminUsername, adminPassword
+        from admin
+        where adminId = #{id}
+    </select>
+
+    <insert id="insert" >
+        insert into admin(adminUsername, adminPassword)
+        values(#{adminUsername},#{adminPassword})
+    </insert>
+
+    <delete id="delete">
+        delete from admin where adminId = #{adminId}
+    </delete>
+
+    <update id="update">
+        update admin set adminUsername = #{adminUsername}, adminPassword = #{adminPassword}
+        where adminId = #{adminId}
+    </update>
+</mapper>

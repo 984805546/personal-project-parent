@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.product.ProductCommentDao">
+    <resultMap id="info" type="com.fs.entity.product.ProductInfo">
+        <id property="productId" column="productId"/>
+        <result property="productCore" column="productCore"/>
+        <result property="productName" column="productName"/>
+<!--        <result property="brandId" column="brandId"/>-->
+<!--        <result property="categoryId" column="categoryId"/>-->
+<!--        <result property="price" column="price"/>-->
+<!--        <result property="averageCost" column="averageCost"/>-->
+<!--        <result property="productionDate" column="productionDate"/>-->
+<!--        <result property="shelfLife" column="shelfLife"/>-->
+<!--        <result property="descript" column="descript"/>-->
+<!--        <result property="modifiedTime" column="modifiedTime"/>-->
+    </resultMap>
+    <resultMap id="master" type="com.fs.entity.order.OrderMaster">
+        <id property="orderId" column="orderId"/>
+        <result property="orderSn" column="orderSn"/>
+        <result property="customerId" column="customerId"/>
+<!--        <result property="customerAddrId" column="customerAddrId"/>-->
+<!--        <result property="orderMoney" column="orderMoney"/>-->
+<!--        <result property="districtMoney" column="districtMoney"/>-->
+<!--        <result property="shippingMoney" column="shippingMoney"/>-->
+<!--        <result property="paymentMoney" column="paymentMoney"/>-->
+<!--        <result property="shippingSn" column="shippingSn"/>-->
+<!--        <result property="createTime" column="createTime"/>-->
+<!--        <result property="shippingTime" column="shippingTime"/>-->
+<!--        <result property="payTime" column="payTime"/>-->
+<!--        <result property="receiveTime" column="receiveTime"/>-->
+<!--        <result property="orderStatus" column="orderStatus"/>-->
+<!--        <result property="modifiedTime" column="modifiedTime"/>-->
+    </resultMap>
+    <resultMap id="customer" type="com.fs.entity.customer.CustomerLogin">
+        <id property="customerId" column="customerId"/>
+        <result property="loginUsername" column="loginUsername"/>
+<!--        <result property="password" column="password"/>-->
+<!--        <result property="modifiedTime" column="modifiedTime"/>-->
+    </resultMap>
+    <resultMap id="comment" type="com.fs.entity.product.ProductComment">
+        <id property="commentId" column="commentId"/>
+        <result property="productId" column="productId"/>
+        <result property="orderId" column="orderId"/>
+        <result property="customerId" column="customerId"/>
+        <result property="content" column="content"/>
+        <result property="auditTime" column="auditTime"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+
+        <association property="product" resultMap="info"/>
+        <association property="order" resultMap="master"/>
+        <association property="customer" resultMap="customer"/>
+    </resultMap>
+
+    <select id="getPageHelper" resultMap="comment">
+        select commentId,c.productId,c.orderId,c.customerId,content,auditTime,c.modifiedTime,
+        productName,orderSn,loginUsername
+        from product_comment c
+        left join product_info i on c.productId = i.productId
+        left join order_master o on c.orderId = o.orderId
+        left join customer_login l on c.customerId = l.customerId
+        order by commentId
+    </select>
+
+    <select id="getFilter" resultMap="comment">
+        select commentId,c.productId,c.orderId,c.customerId,content,auditTime,c.modifiedTime,
+        productName,orderSn,loginUsername
+        from product_comment c
+        left join product_info i on c.productId = i.productId
+        left join order_master o on c.orderId = o.orderId
+        left join customer_login l on c.customerId = l.customerId
+        <where>
+            <if test=" productName != null ">
+                productName like concat('%',#{productName},'%')
+            </if>
+            <if test=" orderSn != null ">
+                and orderSn like concat('%',#{orderSn},'%')
+            </if>
+            <if test=" loginUsername != null ">
+                and loginUsername like concat('%',#{loginUsername},'%')
+            </if>
+        </where>
+        order by commentId
+    </select>
+
+    <insert id="insert" >
+        insert into product_comment(productId,orderId,customerId,content,auditTime,modifiedTime)
+        values(#{productId},#{orderId},#{customerId},#{content},now(),now())
+    </insert>
+
+    <delete id="delete">
+        delete from product_comment where commentId = #{commentId}
+    </delete>
+
+    <update id="update">
+        update product_comment
+        set content = #{content},modifiedTime = now
+        where commentId = #{commentId}
+    </update>
+</mapper>

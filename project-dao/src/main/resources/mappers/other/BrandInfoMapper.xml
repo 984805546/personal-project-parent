@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.other.BrandInfoDao">
+    <resultMap id="brand" type="com.fs.entity.other.BrandInfo">
+        <id property="brandId" column="brandId"/>
+        <result property="brandName" column="brandName"/>
+        <result property="telephone" column="telephone"/>
+        <result property="brandWeb" column="brandWeb"/>
+        <result property="brandLogo" column="brandLogo"/>
+        <result property="brandDesc" column="brandDesc"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="brand">
+        select brandId, brandName, telephone, brandWeb, brandLogo, brandDesc, modifiedTime
+        from brand_info
+        order by brandId
+    </select>
+
+    <select id="getPageHelper" resultMap="brand">
+        select brandId, brandName, telephone, brandWeb, brandLogo, brandDesc, modifiedTime
+        from brand_info
+        order by brandId
+    </select>
+
+    <select id="getByName" resultMap="brand">
+        <bind name="Name" value="'%' + _parameter.param3 + '%'"/>
+        select brandId, brandName, telephone, brandWeb, brandLogo, brandDesc, modifiedTime
+        from brand_info
+        where brandName like #{Name}
+        order by brandId
+    </select>
+
+    <insert id="insert" >
+        insert into brand_info(brandName, telephone, brandWeb, brandLogo, brandDesc, modifiedTime)
+        values(#{brandName},#{telephone},#{brandWeb},#{brandLogo},#{brandDesc},now())
+    </insert>
+
+    <delete id="delete">
+        delete from brand_info where brandId = #{brandId}
+    </delete>
+
+    <update id="update">
+        update brand_info set brandName = #{brandName}, telephone = #{telephone},
+         brandWeb = #{brandWeb}, brandLogo = #{brandLogo}, brandDesc = #{brandDesc},
+         modifiedTime = now() where brandId = #{brandId}
+    </update>
+</mapper>

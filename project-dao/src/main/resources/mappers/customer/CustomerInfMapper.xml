@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.customer.CustomerInfDao">
+    <resultMap id="addr" type="com.fs.entity.customer.CustomerInf">
+        <id property="customerInfId" column="customerInfId"/>
+        <result property="customerId" column="customerId"/>
+        <result property="customerName" column="customerName"/>
+        <result property="identityCardType" column="identityCardType"/>
+        <result property="identityCardNo" column="identityCardNo"/>
+        <result property="mobilePhone" column="mobilePhone"/>
+        <result property="customerEmail" column="customerEmail"/>
+        <result property="gender" column="gender"/>
+        <result property="registerTime" column="registerTime"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+    </resultMap>
+    <select id="getPageHelper" resultMap="addr">
+        select customerInfId,customerId,customerName,identityCardType,identityCardNo,mobilePhone,customerEmail,gender,registerTime,modifiedTime
+        from customer_inf
+        order by customerInfId
+    </select>
+
+    <select id="getByCustomerId" resultMap="addr">
+        select customerInfId,customerId,customerName,identityCardType,identityCardNo,mobilePhone,customerEmail,gender,registerTime,modifiedTime
+        from customer_inf
+        where customerId = #{customerId}
+    </select>
+
+    <select id="getById" resultMap="addr">
+        select customerInfId,customerId,customerName,identityCardType,identityCardNo,mobilePhone,customerEmail,gender,registerTime,modifiedTime
+        from customer_inf
+        where customerInfId = #{customerInfId}
+    </select>
+
+    <insert id="insert" >
+        insert into customer_inf(customerId,customerName,identityCardType,identityCardNo,mobilePhone,customerEmail,gender,registerTime,modifiedTime)
+        values(#{customerId},#{customerName},#{identityCardType},#{identityCardNo},#{mobilePhone},#{customerEmail},#{gender},#{registerTime},now())
+    </insert>
+
+    <delete id="delete">
+        delete from customer_inf where customerInfId = #{customerInfId}
+    </delete>
+
+    <update id="update">
+        update customer_inf set customerId = #{customerId},customerName = #{customerName},
+        identityCardType = #{identityCardType},identityCardNo = #{identityCardNo},
+        mobilePhone = #{mobilePhone},customerEmail = #{customerEmail},
+        gender = #{gender},registerTime = #{registerTime},modifiedTime = now()
+        where customerInfId = #{customerInfId}
+    </update>
+</mapper>

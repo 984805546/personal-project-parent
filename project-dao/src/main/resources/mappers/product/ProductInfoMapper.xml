@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.product.ProductInfoDao">
+    <resultMap id="info" type="com.fs.entity.product.ProductInfo">
+        <id property="productId" column="productId"/>
+        <result property="productCore" column="productCore"/>
+        <result property="productName" column="productName"/>
+        <result property="brandId" column="brandId"/>
+        <result property="categoryId" column="categoryId"/>
+        <result property="price" column="price"/>
+        <result property="averageCost" column="averageCost"/>
+        <result property="productionDate" column="productionDate"/>
+        <result property="shelfLife" column="shelfLife"/>
+        <result property="descript" column="descript"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+
+<!--        <collection property="brand" resultMap="brand"/>-->
+<!--        <collection property="category" resultMap="category"/>-->
+    </resultMap>
+
+<!--    <resultMap id="category" type="com.fs.entity.product.ProductCategory">-->
+<!--        <id property="categoryId" column="categoryId"/>-->
+<!--        <result property="categoryName" column="categoryName"/>-->
+<!--        <result property="categoryCode" column="categoryCode"/>-->
+<!--        <result property="modifiedTime" column="modifiedTime"/>-->
+<!--    </resultMap>-->
+
+<!--    <resultMap id="brand" type="com.fs.entity.other.BrandInfo">-->
+<!--        <id property="brandId" column="brandId"/>-->
+<!--        <result property="brandName" column="brandName"/>-->
+<!--        <result property="telephone" column="telephone"/>-->
+<!--        <result property="brandWeb" column="brandWeb"/>-->
+<!--        <result property="brandLogo" column="brandLogo"/>-->
+<!--        <result property="brandDesc" column="brandDesc"/>-->
+<!--        <result property="modifiedTime" column="modifiedTime"/>-->
+<!--    </resultMap>-->
+
+
+    <select id="getAll" resultMap="info">
+        select productId,productCore,productName,brandId,categoryId,price,averageCost,
+        productionDate,shelfLife,descript,modifiedTime
+        from product_info
+        order by productId
+    </select>
+
+    <select id="getPageHelper" resultMap="info">
+        select productId,productCore,productName,brandId,categoryId,price,averageCost,
+        productionDate,shelfLife,descript,modifiedTime
+        from product_info
+        order by productId
+    </select>
+
+
+    <select id="getFilter" resultMap="info">
+        select productId,productCore,productName,brandId,categoryId,price,averageCost,
+        productionDate,shelfLife,descript,modifiedTime
+        from product_info
+        <where>
+            <if test=" productName != '' ">
+                and productName like concat('%',#{productName},'%')
+            </if>
+            <if test=" productCore != '' ">
+                and productCore like concat('%',#{productCore},'%')
+            </if>
+            <if test=" categoryId > 0 ">
+                and categoryId = #{categoryId}
+            </if>
+            <if test=" brandId > 0 ">
+                and brandId = #{brandId}
+            </if>
+        </where>
+        order by productId
+    </select>
+
+    <insert id="insert" >
+        insert into product_info(productCore,productName,brandId,categoryId,price,
+        averageCost,productionDate,shelfLife,descript,modifiedTime)
+        values(#{productCore},#{productName},#{brandId},#{categoryId},#{price},#{averageCost}
+        ,#{productionDate},#{shelfLife},#{descript},now())
+        <selectKey keyProperty="productId" resultType="java.lang.Integer">
+            select LAST_INSERT_ID() as productId
+        </selectKey>
+    </insert>
+
+    <delete id="delete">
+        delete from product_info where productId = #{productId}
+    </delete>
+
+    <update id="update">
+        update product_info
+        set productCore = #{productCore}, productName = #{productName},
+        brandId = #{brandId}, categoryId = #{categoryId},price = #{price},
+        averageCost = #{averageCost},productionDate = #{productionDate},
+        shelfLife = #{shelfLife}, descript = #{descript},modifiedTime = now()
+        where productId = #{productId}
+    </update>
+</mapper>

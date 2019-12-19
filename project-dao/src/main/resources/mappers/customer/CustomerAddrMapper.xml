@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.customer.CustomerAddrDao">
+    <resultMap id="addr" type="com.fs.entity.customer.CustomerAddr">
+        <id property="customerAddrId" column="customerAddrId"/>
+        <result property="customerId" column="customerId"/>
+        <result property="consignee" column="consignee"/>
+        <result property="consigneePhone" column="consigneePhone"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="district" column="district"/>
+        <result property="address" column="address"/>
+        <result property="isDefault" column="isDefault"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+    </resultMap>
+    <select id="getPageHelper" resultMap="addr">
+        select customerAddrId,customerId,consignee,consigneePhone,province,city,district,address,isDefault,modifiedTime
+        from customer_addr
+        order by customerAddrId
+    </select>
+
+    <select id="getByCustomerId" resultMap="addr">
+        select customerAddrId,customerId,consignee,consigneePhone,province,city,district,address,isDefault,modifiedTime
+        from customer_addr
+        where customerId = #{customerId}
+    </select>
+
+    <select id="getDefault" resultMap="addr">
+        select customerAddrId,customerId,consignee,consigneePhone,province,city,district,address,isDefault,modifiedTime
+        from customer_addr
+        where customerId = #{customerId} and isDefault = 1
+    </select>
+
+    <insert id="insert" >
+        insert into customer_addr(customerId,consignee,consigneePhone,province,city,district,address,isDefault,modifiedTime)
+        values(#{customerId},#{consignee},#{consigneePhone},#{province},#{city}
+        ,#{district},#{address},#{isDefault},now())
+        <selectKey keyProperty="customerAddrId" resultType="java.lang.Integer">
+            select LAST_INSERT_ID() as customerAddrId
+        </selectKey>
+    </insert>
+
+    <delete id="delete">
+        delete from customer_addr where customerAddrId = #{customerAddrId}
+    </delete>
+
+    <update id="update">
+        update customer_addr set customerId = #{customerId},consignee = #{consignee},
+        consigneePhone = #{consigneePhone},province = #{province},city = #{city},district = #{district},
+        address = #{address},isDefault = #{isDefault},modifiedTime = now()
+        where customerAddrId = #{customerAddrId}
+    </update>
+
+    <update id="updateDefault">
+        update customer_addr
+        set isDefault = 0, modifiedTime = now()
+        where customerAddrId != #{customerAddrId} and customerId = #{customerId}
+    </update>
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.product.WarehouseProductDao">
+    <resultMap id="warehouse" type="com.fs.entity.product.WarehouseProduct">
+        <id property="wpId" column="wpId"/>
+        <result property="productId" column="productId"/>
+        <result property="currentCnt" column="currentCnt"/>
+        <result property="lockCnt" column="lockCnt"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+        <association property="product" resultMap="info"/>
+    </resultMap>
+    <resultMap id="info" type="com.fs.entity.product.ProductInfo">
+        <id property="productId" column="productId"/>
+        <result property="productCore" column="productCore"/>
+        <result property="productName" column="productName"/>
+    </resultMap>
+
+    <select id="getPageHelper" resultMap="warehouse">
+        select wpId,w.productId,currentCnt,lockCnt,w.modifiedTime,
+        p.productCore,p.productName
+        from warehouse_product w
+        left join product_info p on w.productId = p.productId
+        order by wpId
+    </select>
+
+    <select id="getFilter" resultMap="warehouse">
+        select wpId,w.productId,currentCnt,lockCnt,w.modifiedTime,
+        p.productCore,p.productName
+        from warehouse_product w
+        left join product_info p on w.productId = p.productId
+        <where>
+            <if test=" productName != null ">
+                and productName like concat('%',#{productName},'%')
+            </if>
+            <if test=" productCore != null ">
+                and productCore like concat('%',#{productCore},'%')
+            </if>
+        </where>
+        order by orderId
+    </select>
+
+    <select id="getById" resultMap="warehouse">
+        select wpId,w.productId,currentCnt,lockCnt,w.modifiedTime,
+        p.productCore,p.productName
+        from warehouse_product w
+        left join product_info p on w.productId = p.productId
+        <where>
+            <if test=" param1 != null">
+                and wpId = #{param1}
+            </if>
+            <if test=" param2 != null ">
+                and w.productId = #{param2}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" >
+        insert into warehouse_product(productId,currentCnt,lockCnt,modifiedTime)
+        values(#{productId},#{currentCnt},#{lockCnt},now())
+    </insert>
+
+    <delete id="delete">
+        delete from warehouse_product
+        <where>
+            <if test=" param1 != null">
+                and wpId = #{param1}
+            </if>
+            <if test=" param2 != null ">
+                and productId = #{param2}
+            </if>
+        </where>
+    </delete>
+
+    <update id="update">
+        update warehouse_product
+        set currentCnt = #{currentCnt},lockCnt = #{lockCnt},modifiedTime = now()
+        where wpId = #{wpId}
+    </update>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.order.OrderDetailDao">
+    <resultMap id="master" type="com.fs.entity.order.OrderDetail">
+        <id property="orderDetailId" column="orderDetailId"/>
+        <result property="orderId" column="orderId"/>
+        <result property="productId" column="productId"/>
+        <result property="productName" column="productName"/>
+        <result property="productCnt" column="productCnt"/>
+        <result property="productPrice" column="productPrice"/>
+        <result property="wId" column="wId"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+    </resultMap>
+
+    <select id="getPageHelper" resultMap="master">
+        select orderDetailId,orderId,productId,
+        productName,productCnt,productPrice,wId,modifiedTime
+        from order_detail
+        order by orderDetailId
+    </select>
+
+    <select id="getFilter" resultMap="master">
+        select orderDetailId,orderId,productId,
+        productName,productCnt,productPrice,wId,modifiedTime
+        from order_detail
+        where orderId = #{orderId}
+        order by orderDetailId
+    </select>
+
+    <select id="getById" resultMap="master">
+        select orderDetailId,orderId,productId,
+        productName,productCnt,productPrice,wId,modifiedTime
+        from order_detail
+        where orderDetailId = #{orderDetailId}
+        order by orderDetailId
+    </select>
+
+    <insert id="insert" >
+        insert into
+        order_detail(orderId,productId,productName,productCnt,productPrice,wId,modifiedTime)
+        values
+        (#{orderId},#{productId},#{productName},#{productCnt},#{productPrice},#{wId},now())
+    </insert>
+
+    <delete id="delete">
+        delete from order_detail where orderDetailId = #{orderDetailId}
+    </delete>
+
+    <update id="update">
+        update order_detail
+        <set>
+            <if test="orderId != null">orderId = #{orderId},</if>
+            <if test="productId != null">productId = #{productId},</if>
+            <if test="productName != null">productName = #{productName},</if>
+            <if test="productCnt != null">productCnt = #{productCnt},</if>
+            <if test="productPrice != null">productPrice = #{productPrice},</if>
+            <if test="wId != null">wId = #{wId},</if>
+            <if test="modifiedTime == null">modifiedTime = now(),</if>
+        </set>
+        where orderDetailId = #{orderDetailId}
+    </update>
+</mapper>

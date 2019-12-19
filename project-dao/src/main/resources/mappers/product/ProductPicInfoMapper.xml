@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.product.ProductPicInfoDao">
+    <resultMap id="pic" type="com.fs.entity.product.ProductPicInfo">
+        <id property="productPicId" column="productPicId"/>
+        <result property="productId" column="productId"/>
+        <result property="picMaster" column="picMaster"/>
+        <result property="picDesc" column="picDesc"/>
+        <result property="picUrl" column="picUrl"/>
+        <result property="modifiedTime" column="modifiedTime"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="pic">
+        select productPicId,productId,picMaster,picDesc,picUrl,modifiedTime
+        from product_pic_info
+        order by productPicId
+    </select>
+
+    <select id="getPageHelper" resultMap="pic">
+        select productPicId,productId,picMaster,picDesc,picUrl,modifiedTime
+        from product_pic_info
+        order by productPicId
+    </select>
+
+    <select id="getFilter" resultMap="pic">
+        select productPicId,i.productId,picMaster,picDesc,picUrl,i.modifiedTime
+        from product_pic_info i
+        left join product_info p on i.productId = p.productId
+        <where>
+            <if test=" productName != '' ">
+                and productName like concat('%',#{productName},'%')
+            </if>
+            <if test=" picMaster != null ">
+                and picMaster = #{picMaster}
+            </if>
+        </where>
+        order by productPicId
+    </select>
+
+    <select id="getByUrl" resultMap="pic">
+        select productPicId,productId,picMaster,picDesc,picUrl,modifiedTime
+        from product_pic_info
+        where picUrl = #{picUrl}
+    </select>
+
+    <insert id="insert">
+        insert into product_pic_info(productId,picMaster,picDesc,picUrl,modifiedTime)
+        values(#{productId},#{picMaster},#{picDesc},#{picUrl},now())
+        <selectKey keyProperty="productPicId" resultType="java.lang.Integer">
+            select LAST_INSERT_ID() as productPicId
+        </selectKey>
+    </insert>
+
+    <delete id="delete">
+        delete from product_pic_info where productPicId = #{productPicId}
+    </delete>
+
+    <update id="update">
+        update product_pic_info
+        set productId = #{productId}, picMaster = #{picMaster},
+        picDesc = #{picDesc}, modifiedTime = now()
+        where productPicId = #{productPicId}
+    </update>
+
+    <update id="updateMaster">
+        update product_pic_info
+        set picMaster = 0, modifiedTime = now()
+        where productPicId != #{arg0} and productId = #{arg1}
+    </update>
+</mapper>

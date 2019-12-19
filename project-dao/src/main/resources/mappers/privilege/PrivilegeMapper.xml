@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.privilege.PrivilegeDao">
+    <resultMap id="privilege" type="com.fs.entity.privilege.Privilege">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="uri" column="uri"/>
+        <result property="parent" column="parent"/>
+        <result property="pid" column="pid"/>
+    </resultMap>
+
+    <select id="findPrivilege" resultMap="privilege">
+        select id, name, parent, pid, uri
+        from privilege
+        where id = #{id}
+    </select>
+
+    <select id="getAll" resultMap="privilege">
+        select id, name, parent, pid, uri
+        from privilege
+    </select>
+
+
+    <select id="getPrivileges" resultMap="privilege">
+        select p.id, p.name, p.parent, p.pid, p.uri
+        from privilege p
+        inner join role_privilege rp on p.id = rp.privilege_id
+        where rp.role_id = #{roleId}
+    </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fs.dao.privilege.RoleDao">
+    <resultMap id="role" type="com.fs.entity.privilege.Role">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+
+    <insert id="insert">
+        insert into role(name, description) values(#{name},#{description})
+    </insert>
+
+    <select id="findRole" resultMap="role">
+        select id, name, description
+        from role
+        where id = #{roleId}
+    </select>
+
+    <select id="getAll" resultMap="role">
+        select id, name, description
+        from Role
+    </select>
+
+    <select id="getRoles" resultMap="role">
+        select r.id,r.name,r.description
+        from role r,user_role ur
+        where r.id = ur.role_id and ur.user_id = #{userId}
+    </select>
+
+
+</mapper>

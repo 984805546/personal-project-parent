@@ -79,6 +79,7 @@ public class CheckloginInterceptor implements HandlerInterceptor {
             }
         }
         return isAllowd;
+
     }
 
     //将权限中的地址分开（例如有Uri="/be/customer,/be/comment"）

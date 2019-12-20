@@ -9,6 +9,8 @@
     </delete>
 
     <insert id="insert">
-        insert into user_role (user_id,role_id) values(#{userId},#{roleId})
+        <foreach collection="roles" item="role" separator=";">
+            insert into user_role(user_id,role_id) values(#{userId},#{role.id})
+        </foreach>
     </insert>
 </mapper>

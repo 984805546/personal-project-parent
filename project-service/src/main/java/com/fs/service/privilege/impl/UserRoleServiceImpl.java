@@ -4,9 +4,14 @@ package com.fs.service.privilege.impl;/**
  */
 
 import com.fs.dao.privilege.UserRoleDao;
+import com.fs.entity.privilege.Role;
+import com.fs.entity.privilege.User;
 import com.fs.service.privilege.UserRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @program personal-project-parent 
@@ -25,7 +30,14 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public int insert(Integer userId, Integer roleId) {
-        return urDao.insert(userId, roleId);
+    public int insert(Integer userId, List<Role> roles) {
+        return urDao.insert(userId, roles);
+    }
+
+    @Override
+    @Transactional
+    public void update(User user, List<Role> roles) {
+        urDao.deleteByUser(user.getId());
+        urDao.insert(user.getId(),roles);
     }
 }

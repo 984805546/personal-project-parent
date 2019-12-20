@@ -23,6 +23,21 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     private PrivilegeDao privilegeDao;
 
     @Override
+    public int insert(Privilege privilege) {
+        return privilegeDao.insert(privilege);
+    }
+
+    @Override
+    public int delete(Integer id) {
+        return privilegeDao.delete(id);
+    }
+
+    @Override
+    public int update(Privilege privilege) {
+        return privilegeDao.update(privilege);
+    }
+
+    @Override
     public Privilege findPrivilege(String id) {
         return privilegeDao.findPrivilege(id);
     }
@@ -35,5 +50,15 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     @Override
     public List<Privilege> getPrivileges(Integer roleId) {
         return privilegeDao.getPrivileges(roleId);
+    }
+
+    @Override
+    public List<Privilege> getPageHelper(Integer pageNum, Integer pageSize) {
+        return privilegeDao.getPageHelper(pageNum, pageSize);
+    }
+
+    @Override
+    public List<Privilege> getFilter(Integer pageNum, Integer pageSize, String name) {
+        return privilegeDao.getFilter(pageNum, pageSize,name);
     }
 }

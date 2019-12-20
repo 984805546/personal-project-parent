@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: fangchengfangcheng
-  Date: 2019-12-04
-  Time: 20:09
+  Date: 2019-12-20
+  Time: 14:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,12 +11,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>品牌管理</title>
+    <title>用户管理</title>
     <!-- zui css -->
     <link rel="stylesheet" href="/static/zui/css/zui.min.css">
     <link rel="stylesheet" href="/static/zui/theme/blue.css">
     <!-- app css -->
     <link rel="stylesheet" href="/static/admin/css/app.css">
+
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrapStyle/bootstrapStyle.css" type="text/css">
 </head>
 <body>
 
@@ -89,15 +91,15 @@
         <div class="content-header">
             <ul class="breadcrumb">
                 <li><a href="#"><i class="icon icon-home"></i></a></li>
-                <li><a href="#">页面演示</a></li>
-                <li class="active">品牌管理</li>
+                <li><a href="#">基础资料管理</a></li>
+                <li class="active">用户管理</li>
             </ul>
         </div>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="panel">
                     <div class="panel-heading">
-                        <div class="panel-title">品牌管理</div>
+                        <div class="panel-title">用户管理</div>
                     </div>
                     <div class="panel-body">
                         <div class="table-tools" style="margin-bottom: 15px;">
@@ -123,24 +125,21 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>品牌名称</th>
-                                <th>联系电话</th>
-                                <th>品牌网络</th>
-                                <th>品牌logo URL</th>
-                                <th>品牌描述</th>
+                                <th>ID</th>
+                                <th>用户名称</th>
+                                <th>用户密码</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for='list in info.list'>
-                                <td>{{list.brandName}}</td>
-                                <td>{{list.telephone}}</td>
-                                <td>{{list.brandWeb}}</td>
-                                <td>{{list.brandLogo}}</td>
-                                <td>{{list.brandDesc}}</td>
+                            <tr v-for='(value,index) in info.list'>
+                                <td>{{++index}}</td>
+                                <td>{{value.username}}</td>
+                                <td>{{value.password}}</td>
                                 <td>
-                                    <a href='#' class='delete btn btn-xs btn-danger' @click="deleteRow(list.brandId)">删除</a>
-                                    <a href='#' class='edit btn btn-xs btn-primary' @click="update(list)">编辑</a>
+                                    <a href='#' class='delete btn btn-xs btn-danger' @click="deleteRow(value.id)">注销</a>
+                                    <a href='#' class='edit btn btn-xs btn-primary' @click="update(value)">编辑</a>
+                                    <a href='#' class='delete btn btn-xs btn-danger' @click="associatedRole(value.id)">赋予角色</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -172,39 +171,21 @@
                         &times;
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        修改品牌信息
+                        用户信息
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="brandInfo">
+                    <form class="form-horizontal" role="form" id="userInfo">
                         <div class="form-group">
-                            <label for="brandName" class="col-sm-2 control-label">品牌名称</label>
+                            <label for="username" class="col-sm-2 control-label">用户名称</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="brandName" name="brandName" v-model="brandName"/>
+                                <input type="text" class="form-control" id="username" name="username" v-model="username"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="telephone" class="col-sm-2 control-label">联系电话</label>
+                            <label for="password" class="col-sm-2 control-label">用户密码</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="telephone" name="telephone" v-model="telephone"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="brandWeb" class="col-sm-2 control-label">品牌网络</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="brandWeb" name="brandWeb" v-model="brandWeb"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="brandLogo" class="col-sm-2 control-label">品牌logo URL</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="brandLogo" name="brandLogo" v-model="brandLogo"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="brandDesc" class="col-sm-2 control-label">品牌描述</label>
-                            <div class="col-sm-10">
-                                <input type="tel" class="form-control" id="brandDesc" name="brandDesc" v-model="brandDesc" />
+                                <input type="text" class="form-control" id="password" name="password" v-model="password"/>
                             </div>
                         </div>
 
@@ -220,16 +201,38 @@
             </div>
         </div>
     </div>
+    <!-- 模态框（Modal）-->
+    <div class="modal fade" id="Role" tabindex="-1" role="dialog" aria-labelledby="myRole" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myRole">
+                        授权
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <ul id="tree" class="ztree"></ul>
+                    <button type="button" id="authorization" class="btn btn-default" @click="endue()">授权</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
 <script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/js/jquery.ztree.core.js"></script>
+<script src="/static/js/jquery.ztree.excheck.js"></script>
 <script src="/static/zui/js/zui.min.js" charset="utf-8"></script>
 <script src="/static/admin/js/app.js"></script>
 <script src="/static/js/vue.min.js"></script>
 <script src="/static/js/axios.min.js"></script>
 <script src="/static/js/vue-router.js"></script>
 <script src="/static/admin/js/privilege.js"></script>
-<script src="/static/admin/js/brand.js"></script>
+<script src="/static/admin/js/user.js"></script>
 </body>
 </html>
+

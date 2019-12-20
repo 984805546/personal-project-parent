@@ -1,6 +1,9 @@
 package com.fs.dao.privilege;
 
+import com.fs.entity.privilege.Role;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author: fs
@@ -10,5 +13,5 @@ public interface UserRoleDao {
 
     int deleteByUser(Integer userId);
 
-    int insert(@Param("userId") Integer userId, @Param("roleId") Integer roleId);
+    int insert(@Param("userId") Integer userId, @Param("roles") List<Role> roles);
 }

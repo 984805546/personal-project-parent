@@ -59,7 +59,7 @@ public class CheckloginInterceptor implements HandlerInterceptor {
         }
 
         String requestUri = getRequestUrl(request);
-        List<String> list = getprivilege(privileges);
+        List<String> list = getPrivilege(privileges);
 
         if(isAllowd(list, requestUri)) {
             return true;
@@ -82,8 +82,8 @@ public class CheckloginInterceptor implements HandlerInterceptor {
     }
 
     //将权限中的地址分开（例如有Uri="/be/customer,/be/comment"）
-    public List<String> getprivilege(Set<Privilege> privileges){
-        Set<String> set = new TreeSet<String>();
+    public List<String> getPrivilege(Set<Privilege> privileges){
+        Set<String> set = new HashSet<String>();
         for(Privilege privilege:privileges) {
             String[] uris = privilege.getUri().trim().split(",");
             if(uris!=null) {

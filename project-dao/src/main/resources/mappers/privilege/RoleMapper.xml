@@ -14,6 +14,15 @@
         insert into role(name, description) values(#{name},#{description})
     </insert>
 
+    <delete id="delete">
+        delete from role where id = #{id}
+    </delete>
+
+    <update id="update">
+        update role set name = #{name}, description = #{description}
+        where id = #{id}
+    </update>
+
     <select id="findRole" resultMap="role">
         select id, name, description
         from role
@@ -22,8 +31,23 @@
 
     <select id="getAll" resultMap="role">
         select id, name, description
-        from Role
+        from role
     </select>
+
+    <select id="getPageHelper" resultMap="role">
+        select id, name, description
+        from role
+        order by id
+    </select>
+
+    <select id="getFilter" resultMap="role">
+        <bind name="Name" value="'%' + _parameter.param3 + '%'"/>
+        select id, name, description
+        from role
+        where name like #{Name}
+        order by id
+    </select>
+
 
     <select id="getRoles" resultMap="role">
         select r.id,r.name,r.description

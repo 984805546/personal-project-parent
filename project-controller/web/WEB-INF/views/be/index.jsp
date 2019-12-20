@@ -7,7 +7,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>后台管理</title>
-
 	<!-- zui css -->
 	<link rel="stylesheet" href="/static/zui/css/zui.min.css">
 	<link rel="stylesheet" href="/static/zui/theme/blue.css">
@@ -66,28 +65,16 @@
 	<aside class="main-sidebar">
 		<section class="sidebar">
 			<ul id="treeMenu" class="sidebar-menu" data-widget="tree">
-				<li class="header">主要菜单</li>
-				<li class="active">
-					<a href="index.html">
-						<i class="icon icon-dashboard"></i>
-						<span>主页</span>
-						<span class="pull-right-container">
-                            </span>
-					</a>
-				</li>
+				<li class="header">功能菜单</li>
 				<li class="treeview" id="menuTemplate">
 					<a href="javascript:;">
-						<span class="parent">页面演示</span>
+						<span class="parent">主页</span>
 						<span class="pull-right-container">
-                                <i class="icon icon-angle-left"></i>
-                            </span>
+                            <i class="icon icon-angle-left"></i>
+                        </span>
 					</a>
 					<ul class="treeview-menu child">
-<%--						<li><a href="layout.html"><i class="icon icon-circle-blank"></i> 空白页</a></li>--%>
-<%--						<li><a href="login.html"><i class="icon icon-circle-blank"></i> 登录</a></li>--%>
-<%--						<li><a href="error-404.html"><i class="icon icon-circle-blank"></i> 404页</a></li>--%>
-<%--						<li><a href="config.html"><i class="icon icon-circle-blank"></i> 系统设置</a></li>--%>
-<%--						<li><a href="list.html"><i class="icon icon-circle-blank"></i> 用户列表</a></li>--%>
+						<li><a href="/be/index"><i class="icon icon-circle-blank"></i> 页面演示</a></li>
 					</ul>
 				</li>
 			</ul>

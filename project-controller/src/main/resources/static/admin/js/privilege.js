@@ -36,7 +36,6 @@ $(function () {
     // $.getJSON("/rp/query", {"id": 1}, function (result) {
     // 	generateMenu(buildTree(result,0));
     // });
-
     axios.get('/rp/query', {
         params: {
             id: 1

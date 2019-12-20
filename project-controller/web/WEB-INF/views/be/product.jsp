@@ -6,134 +6,155 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <title>产品管理</title>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/zui/css/zui.min.css" rel="stylesheet">
-    <link href="/static/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-<%--    <script src="/static/bootstrap/js/bootstrap.min.js"></script>--%>
-    <script src="/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="/static/zui/js/zui.min.js"></script>
-    <script src="/static/js/vue.min.js"></script>
-    <script src="/static/js/axios.min.js"></script>
-    <script src="/static/js/vue-router.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商品信息</title>
+
+    <!-- zui css -->
+    <link rel="stylesheet" href="/static/zui/css/zui.min.css">
+    <link rel="stylesheet" href="/static/zui/theme/blue.css">
+    <!-- app css -->
+    <link rel="stylesheet" href="/static/admin/css/app.css">
 </head>
 <body>
-<div class="container" id="container">
-    <div class="row clearfix">
-        <div class="col-md-4 column">
-            <h1>
-                招宝商城
-            </h1>
-        </div>
-        <div class="col-md-8 column">
-            <h1 class="pull-right username">
-                当前用户：${username}
-            </h1>
-        </div>
-    </div>
-    <div class="row clearfix">
-        <div class="col-md-2 column">
-            <nav class="menu" data-ride="menu" style="width: 190px">
-                <ul id="treeMenu" class="tree tree-menu" data-ride="tree">
-                    <li><a href="/be/homepage"><i class="icon icon-th"></i>主页</a></li>
-                    <li><a href="/be/customer"><i class="icon icon-user"></i>用户资料</a></li>
-                    <li>
-                        <a href="#"><i class="icon icon-sitemap"></i>品类管理</a>
-                        <ul>
-                            <li><a href="/be/brand"><i class="icon icon-area-chart"></i>品牌管理</a></li>
-                            <li><a href="/be/category"><i class="icon icon-pie-chart"></i>分类管理</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="icon icon-shopping-cart"></i>商品管理</a>
-                        <ul>
-                            <li class="active"><a href="/be/product"><i class="icon icon-spin icon-spinner"></i>商品信息</a></li>
-                            <li><a href="/be/picture"><i class="icon icon-picture"></i>商品图片</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/be/comment"><i class="icon icon-comments"></i>评论管理</a></li>
-                    <li><a href="/be/announcement"><i class="icon icon-chat-line"></i>公告管理</a></li>
-                    <li>
-                        <a href="#"><i class="icon icon-tasks"></i>订单管理</a>
-                        <ul>
-                            <li>
-                                <a href="/be/order/ready"><i class="icon icon-circle-blank"></i>已就绪</a>
-                                <ul>
-                                    <li><a href="/be/order/nopay">未支付</a></li>
-                                    <li><a href="/be/order/noship">未发货</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/be/order/processing"><i class="icon icon-play-sign"></i>进行中</a></li>
-                            <li><a href="/be/order/complete"><i class="icon icon-ok-sign"></i>已完成</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="col-md-10 column" id="content">
-            <div class="jumbotron">
-                <div class="row clearfix">
-                    <div class="col-md-10 column">
-                        <p>
-                            <button type="button" class="btn" data-toggle="collapse" data-target="#filterSelect">筛选</button>
-                        </p>
-                        <form class="form-horizontal collapse" id="filterSelect">
-                            <div class="form-group">
-                                <label for="searchOne" class="col-sm-2">商品编号</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <input type="text" class="form-control" id="searchOne" name="searchOne"
-                                           placeholder="请输入商品编号" v-model="searchOne">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="searchTwo" class="col-sm-2">商品名称</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <input type="text" class="form-control" id="searchTwo" name="searchTwo"
-                                           placeholder="请输入商品名称" v-model="searchTwo">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="searchThree" class="col-sm-2">商品分类</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <select id="searchThree" name="searchThree" style="width: 150px"
-                                            class="form-control cate-select col-md-5" v-model="searchThree">
-                                        <option value="0" >请选择类型</option>
-                                        <option v-for="c in category" :value="c.categoryId">{{c.categoryName}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="searchFour" class="col-sm-2">商品品牌</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <select id="searchFour" name="searchFour" style="width: 150px"
-                                            class="form-control cate-select col-md-5" v-model="searchFour">
-                                        <option value="0" >请选择品牌</option>
-                                        <option v-for="b in brand" :value="b.brandId">{{b.brandName}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-5">
-                                    <button type="button" class="btn btn-default" @click="search()">搜索</button>
-                                </div>
-                                <div class="col-sm-push-2 col-sm-5">
-                                    <button type="reset" class="btn btn-default">重置</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-2 column">
-                        <button href="#" class="add btn btn-info" @click="insert()">新增</button>
-                    </div>
+
+<div class="wrapper" id="container">
+    <header class="main-header">
+        <nav class="navbar navbar-fixed-top bg-primary">
+            <div class="navbar-header">
+                <a class="navbar-toggle" href="javascript:;" data-toggle="collapse" data-target=".navbar-collapse"><i class="icon icon-th-large"></i></a>
+                <a class="sidebar-toggle" href="javascript:;" data-toggle="push-menu"><i class="icon icon-bars"></i></a>
+                <a class="navbar-brand" href="#">
+                    <span class="logo">招宝商城</span>
+                    <span class="logo-mini">FS</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="javascript:;" data-toggle="push-menu"><i class="icon icon-bars"></i></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="javascript:;">
+                                    <span>
+                                        <i class="icon icon-bell-alt"></i>
+                                        <span class="label label-danger label-pill up">5</span>
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                    <span>
+                                        <i class="icon icon-envelope-alt"></i>
+                                        <span class="label label-success label-pill up">2</span>
+                                    </span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" data-toggle="dropdown"><i class="icon icon-user"></i> 管理员 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">资料设置</a></li>
+                                <li><a href="#">清除缓存</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-                </br></br>
-                <div class="row clearfix">
-                    <div class="col-md-12 column">
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul id="treeMenu" class="sidebar-menu" data-widget="tree">
+                <li class="header">功能菜单</li>
+                <li class="treeview" id="menuTemplate">
+                    <a href="javascript:;">
+                        <span class="parent">主页</span>
+                        <span class="pull-right-container">
+							<i class="icon icon-angle-left"></i>
+						</span>
+                    </a>
+                    <ul class="treeview-menu child">
+                        <li><a href="/be/index"><i class="icon icon-circle-blank"></i> 页面演示</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        <div class="content-header">
+            <ul class="breadcrumb">
+                <li><a href="#"><i class="icon icon-home"></i></a></li>
+                <li><a href="#">商品管理</a></li>
+                <li class="active">商品信息</li>
+            </ul>
+        </div>
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-title">商品信息</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-tools" style="margin-bottom: 15px;">
+                            <div class="col-md-10 column">
+                                <p>
+                                    <button type="button" class="btn" data-toggle="collapse" data-target="#filterSelect">筛选</button>
+                                </p>
+                                <form class="form-horizontal collapse" id="filterSelect">
+                                    <div class="form-group">
+                                        <label for="searchOne" class="col-sm-2">商品编号</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <input type="text" class="form-control" id="searchOne" name="searchOne"
+                                                   placeholder="请输入商品编号" v-model="searchOne">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="searchTwo" class="col-sm-2">商品名称</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <input type="text" class="form-control" id="searchTwo" name="searchTwo"
+                                                   placeholder="请输入商品名称" v-model="searchTwo">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="searchThree" class="col-sm-2">商品分类</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <select id="searchThree" name="searchThree" style="width: 150px"
+                                                    class="form-control cate-select col-md-5" v-model="searchThree">
+                                                <option value="0" >请选择类型</option>
+                                                <option v-for="c in category" :value="c.categoryId">{{c.categoryName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="searchFour" class="col-sm-2">商品品牌</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <select id="searchFour" name="searchFour" style="width: 150px"
+                                                    class="form-control cate-select col-md-5" v-model="searchFour">
+                                                <option value="0" >请选择品牌</option>
+                                                <option v-for="b in brand" :value="b.brandId">{{b.brandName}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-3">
+                                            <button type="button" class="btn btn-default" @click="search()">查询</button>
+                                        </div>
+                                        <div>
+                                            <button type="reset" class="btn btn-default">重置</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-2 column">
+                                <button href="#" class="add btn btn-info" @click="insert()"><i class="icon icon-plus-sign"></i>新增</button>
+                            </div>
+                        </div>
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
@@ -163,8 +184,8 @@
                                     <a href='#' @click="details(value)"> >>>查看商品详情 </a>
                                 </td>
                                 <td>
-                                    <a href='#' class='delete btn btn-danger' @click="deleteRow(value.productId)">注销</a>
-                                    <a href='#' class='edit btn btn-info' @click="update(value)">编辑</a>
+                                    <a href='#' class='delete btn btn-xs btn-danger' @click="deleteRow(value.productId)">注销</a>
+                                    <a href='#' class='edit btn btn-xs btn-primary' @click="update(value)">编辑</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -184,13 +205,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <div class="center-block" style="width:400px;max-width:100%;background-color:#ccc;">
-                <h3>无版权</h3>
             </div>
         </div>
     </div>
@@ -272,7 +286,7 @@
                             <div class="col-sm-10">
                                 <div class="input-group">
                                     <input type="number" id="shelfLife" name="shelfLife" v-model="shelfLife"
-                                       placeholder="有效期" class="form-control" style="width: 100px" />
+                                           placeholder="有效期" class="form-control" style="width: 100px" />
                                     <div class="input-group-addon" style="width: 20px">天</div>
                                 </div>
                             </div>
@@ -300,7 +314,7 @@
                         <div class="form-group">
                             <label for="descript" class="col-sm-2 control-label">描述</label>
                             <div class="col-sm-10">
-                                <textarea id="descript" name="descript" class="form-control kindeditor"
+								<textarea id="descript" name="descript" class="form-control kindeditor"
                                           style="height:150px;" v-model="descript"></textarea>
                             </div>
                         </div>
@@ -319,6 +333,14 @@
 </div>
 
 
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/zui/js/zui.min.js" charset="utf-8"></script>
+<script src="/static/admin/js/app.js"></script>
+<script src="/static/js/vue.min.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/vue-router.js"></script>
+<script src="/static/admin/js/privilege.js"></script>
 <script src="/static/admin/js/product.js"></script>
 </body>
 </html>

@@ -37,6 +37,21 @@ public class IndexBeController {
         return "be/index";
     }
 
+    @RequestMapping("/user")
+    public String user() {
+        return "be/user";
+    }
+
+    @RequestMapping("/role")
+    public String role() {
+        return "be/role";
+    }
+
+    @RequestMapping("/privilege")
+    public String privilege() {
+        return "be/privilege";
+    }
+
     @RequestMapping("/brand")
     public String brand() {
         return "be/brand";

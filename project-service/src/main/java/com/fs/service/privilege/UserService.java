@@ -24,4 +24,8 @@ public interface UserService {
     User findUser(User user);
 
     List<User> getAll();
+
+    List<User> getPageHelper(Integer pageNum, Integer pageSize);
+
+    List<User> getFilter(Integer pageNum,Integer pageSize,String username);
 }

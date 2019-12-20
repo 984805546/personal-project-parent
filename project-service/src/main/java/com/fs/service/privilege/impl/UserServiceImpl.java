@@ -46,4 +46,14 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return userDao.getAll();
     }
+
+    @Override
+    public List<User> getPageHelper(Integer pageNum, Integer pageSize) {
+        return userDao.getPageHelper(pageNum, pageSize);
+    }
+
+    @Override
+    public List<User> getFilter(Integer pageNum, Integer pageSize, String username) {
+        return userDao.getFilter(pageNum, pageSize,username);
+    }
 }

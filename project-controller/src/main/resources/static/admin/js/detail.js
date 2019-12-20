@@ -18,7 +18,11 @@ $(function(){
                 orderId: orderId
             },
             responseType: "json"
-        }).then(response => (vm.order = response.data.data))
+        }).then(response => (
+            vm.order = response.data.data,
+            vm.customer = response.data.data.customer,
+            vm.addr = response.data.data.addr
+        ))
             .catch(function (error) {
             console.log(error);
             alert("未查询到结果！");
@@ -29,7 +33,9 @@ $(function(){
         el:"#container",
         data: {
             info: [],
-            order:[],
+            customer: [],
+            addr: [],
+            order: [],
             pageNum: 1,
             pageSize: 5
         },

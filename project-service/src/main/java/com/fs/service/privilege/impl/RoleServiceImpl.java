@@ -28,6 +28,16 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public int delete(Integer id) {
+        return roleDao.delete(id);
+    }
+
+    @Override
+    public int update(Role role) {
+        return roleDao.update(role);
+    }
+
+    @Override
     public Role findRole(Integer roleId) {
         return roleDao.findRole(roleId);
     }
@@ -42,4 +52,13 @@ public class RoleServiceImpl implements RoleService {
         return roleDao.getRoles(userId);
     }
 
+    @Override
+    public List<Role> getPageHelper(Integer pageNum, Integer pageSize) {
+        return roleDao.getPageHelper(pageNum, pageSize);
+    }
+
+    @Override
+    public List<Role> getFilter(Integer pageNum, Integer pageSize, String name) {
+        return roleDao.getFilter(pageNum, pageSize,name);
+    }
 }

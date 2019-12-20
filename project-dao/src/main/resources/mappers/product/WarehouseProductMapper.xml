@@ -31,14 +31,14 @@
         from warehouse_product w
         left join product_info p on w.productId = p.productId
         <where>
-            <if test=" productName != null ">
+            <if test=" productName != '' ">
                 and productName like concat('%',#{productName},'%')
             </if>
-            <if test=" productCore != null ">
+            <if test=" productCore != '' ">
                 and productCore like concat('%',#{productCore},'%')
             </if>
         </where>
-        order by orderId
+        order by wpId
     </select>
 
     <select id="getById" resultMap="warehouse">

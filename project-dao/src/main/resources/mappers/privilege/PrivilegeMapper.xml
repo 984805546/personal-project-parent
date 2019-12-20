@@ -11,6 +11,19 @@
         <result property="pid" column="pid"/>
     </resultMap>
 
+    <insert id="insert">
+        insert into privilege(name, pid, uri) values(#{name},#{pid},#{uri})
+    </insert>
+
+    <delete id="delete">
+        delete from privilege where id = #{id}
+    </delete>
+
+    <update id="update">
+        update privilege set name = #{name}, pid = #{pid}, uri = #{uri}
+        where id = #{id}
+    </update>
+
     <select id="findPrivilege" resultMap="privilege">
         select id, name, pid, uri
         from privilege
@@ -22,6 +35,18 @@
         from privilege
     </select>
 
+    <select id="getPageHelper" resultMap="privilege">
+        select id, name, pid, uri
+        from privilege
+        order by id
+    </select>
+
+    <select id="getFilter" resultMap="privilege">
+        select id, name, pid, uri
+        from privilege
+        where name like concat('%',#{name},'%')
+        order by id
+    </select>
 
     <select id="getPrivileges" resultMap="privilege">
         select p.id, p.name, p.pid, p.uri

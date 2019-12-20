@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: fangchengfangcheng
-  Date: 2019-12-04
-  Time: 20:09
+  Date: 2019-12-20
+  Time: 14:55
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,12 +11,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>品牌管理</title>
+    <title>权限管理</title>
     <!-- zui css -->
     <link rel="stylesheet" href="/static/zui/css/zui.min.css">
     <link rel="stylesheet" href="/static/zui/theme/blue.css">
     <!-- app css -->
     <link rel="stylesheet" href="/static/admin/css/app.css">
+
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrapStyle/bootstrapStyle.css" type="text/css">
 </head>
 <body>
 
@@ -89,15 +91,15 @@
         <div class="content-header">
             <ul class="breadcrumb">
                 <li><a href="#"><i class="icon icon-home"></i></a></li>
-                <li><a href="#">页面演示</a></li>
-                <li class="active">品牌管理</li>
+                <li><a href="#">基础资料管理</a></li>
+                <li class="active">权限管理</li>
             </ul>
         </div>
         <div class="content-body">
             <div class="container-fluid">
                 <div class="panel">
                     <div class="panel-heading">
-                        <div class="panel-title">品牌管理</div>
+                        <div class="panel-title">权限管理</div>
                     </div>
                     <div class="panel-body">
                         <div class="table-tools" style="margin-bottom: 15px;">
@@ -123,24 +125,22 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>品牌名称</th>
-                                <th>联系电话</th>
-                                <th>品牌网络</th>
-                                <th>品牌logo URL</th>
-                                <th>品牌描述</th>
+                                <th>授权编号</th>
+                                <th>权限名称</th>
+                                <th>访问地址</th>
+                                <th>上级权限</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for='list in info.list'>
-                                <td>{{list.brandName}}</td>
-                                <td>{{list.telephone}}</td>
-                                <td>{{list.brandWeb}}</td>
-                                <td>{{list.brandLogo}}</td>
-                                <td>{{list.brandDesc}}</td>
+                            <tr v-for='value in info.list'>
+                                <td>{{value.id}}</td>
+                                <td>{{value.name}}</td>
+                                <td>{{value.uri}}</td>
+                                <td>{{value.pid}}</td>
                                 <td>
-                                    <a href='#' class='delete btn btn-xs btn-danger' @click="deleteRow(list.brandId)">删除</a>
-                                    <a href='#' class='edit btn btn-xs btn-primary' @click="update(list)">编辑</a>
+                                    <a href='#' class='delete btn btn-xs btn-danger' @click="deleteRow(value.id)">注销</a>
+                                    <a href='#' class='edit btn btn-xs btn-primary' @click="update(value)">编辑</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -172,39 +172,33 @@
                         &times;
                     </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        修改品牌信息
+                        权限信息
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="brandInfo">
+                    <form class="form-horizontal" role="form" id="privilegeInfo">
                         <div class="form-group">
-                            <label for="brandName" class="col-sm-2 control-label">品牌名称</label>
+                            <label for="id" class="col-sm-2 control-label">授权编号</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="brandName" name="brandName" v-model="brandName"/>
+                                <input type="text" class="form-control" id="id" name="id" v-model="id"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="telephone" class="col-sm-2 control-label">联系电话</label>
+                            <label for="name" class="col-sm-2 control-label">权限名称</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="telephone" name="telephone" v-model="telephone"/>
+                                <input type="text" class="form-control" id="name" name="name" v-model="name"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="brandWeb" class="col-sm-2 control-label">品牌网络</label>
+                            <label for="uri" class="col-sm-2 control-label">访问地址</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="brandWeb" name="brandWeb" v-model="brandWeb"/>
+                                <input type="text" class="form-control" id="uri" name="uri" v-model="uri"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="brandLogo" class="col-sm-2 control-label">品牌logo URL</label>
+                            <label for="pid" class="col-sm-2 control-label">上级权限</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="brandLogo" name="brandLogo" v-model="brandLogo"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="brandDesc" class="col-sm-2 control-label">品牌描述</label>
-                            <div class="col-sm-10">
-                                <input type="tel" class="form-control" id="brandDesc" name="brandDesc" v-model="brandDesc" />
+                                <input type="text" class="form-control" id="pid" name="pid" v-model="pid"/>
                             </div>
                         </div>
 
@@ -224,12 +218,15 @@
 
 
 <script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/js/jquery.ztree.core.js"></script>
+<script src="/static/js/jquery.ztree.excheck.js"></script>
 <script src="/static/zui/js/zui.min.js" charset="utf-8"></script>
 <script src="/static/admin/js/app.js"></script>
 <script src="/static/js/vue.min.js"></script>
 <script src="/static/js/axios.min.js"></script>
 <script src="/static/js/vue-router.js"></script>
 <script src="/static/admin/js/privilege.js"></script>
-<script src="/static/admin/js/brand.js"></script>
+<script src="/static/admin/js/privilegelist.js"></script>
 </body>
 </html>
+

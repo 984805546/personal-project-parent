@@ -20,4 +20,8 @@ public interface UserDao {
     User findUser(User user);
 
     List<User> getAll();
+
+    List<User> getPageHelper(@Param("pageNum")Integer pageNum, @Param("pageSize")Integer pageSize);
+
+    List<User> getFilter(@Param("pageNum")Integer pageNum,@Param("pageSize")Integer pageSize,@Param("username")String username);
 }

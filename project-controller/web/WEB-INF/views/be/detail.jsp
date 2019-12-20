@@ -6,156 +6,179 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <title>订单管理</title>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/static/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/static/zui/css/zui.min.css" rel="stylesheet">
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <script src="/static/zui/js/zui.min.js"></script>
-    <script src="/static/js/vue.min.js"></script>
-    <script src="/static/js/axios.min.js"></script>
-    <script src="/static/js/vue-router.js"></script>
-    <script th:inline="javascript" src="/static/admin/js/detail.js"></script>
-    <script src="/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>订单详情</title>
+
+    <!-- zui css -->
+    <link rel="stylesheet" href="/static/zui/css/zui.min.css">
+    <link rel="stylesheet" href="/static/zui/theme/blue.css">
+    <!-- app css -->
+    <link rel="stylesheet" href="/static/admin/css/app.css">
 </head>
 <body>
-<div class="container" id="container">
-    <div class="row clearfix">
-        <div class="col-md-4 column">
-            <h1>
-                招宝商城
-            </h1>
-        </div>
-        <div class="col-md-8 column">
-            <h1 class="pull-right username">
-                当前用户：${username}
-            </h1>
-        </div>
-    </div>
-    <div class="row clearfix">
-        <div class="col-md-2 column">
-            <nav class="menu" data-ride="menu" style="width: 190px">
-                <ul id="treeMenu" class="tree tree-menu" data-ride="tree">
-                    <li><a href="/be/homepage"><i class="icon icon-th"></i>主页</a></li>
-                    <li><a href="/be/customer"><i class="icon icon-user"></i>用户资料</a></li>
-                    <li>
-                        <a href="#"><i class="icon icon-sitemap"></i>品类管理</a>
-                        <ul>
-                            <li><a href="/be/brand"><i class="icon icon-area-chart"></i>品牌管理</a></li>
-                            <li><a href="/be/category"><i class="icon icon-pie-chart"></i>分类管理</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#"><i class="icon icon-shopping-cart"></i>商品管理</a>
-                        <ul>
-                            <li><a href="/be/product"><i class="icon icon-spin icon-spinner"></i>商品信息</a></li>
-                            <li><a href="/be/picture"><i class="icon icon-picture"></i>商品图片</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="/be/comment"><i class="icon icon-comments"></i>评论管理</a></li>
-                    <li><a href="/be/announcement"><i class="icon icon-chat-line"></i>公告管理</a></li>
-                    <li class="active">
-                        <a href="/be/order"><i class="icon icon-tasks"></i>订单管理</a>
-                        <ul>
-                            <li>
-                                <a><i class="icon icon-circle-blank"></i>已就绪</a>
-                                <ul>
-                                    <li><a @click="searchStatus(3)">未支付</a></li>
-                                    <li><a @click="searchStatus(2)">未发货</a></li>
-                                </ul>
-                            </li>
-                            <li><a @click="searchStatus(1)"><i class="icon icon-play-sign"></i>进行中</a></li>
-                            <li><a @click="searchStatus(0)"><i class="icon icon-ok-sign"></i>已完成</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="col-md-10 column" id="content">
-            <div class="jumbotron">
-                <div class="row clearfix">
-                    <div class="col-md-12 column">
-                        <form class="form-horizontal">
-                            <input id="orderId" type="hidden" value="${orderId}">
-                            <div class="form-group">
-                                <label for="orderSn" class="col-sm-2">订单编号</label>
-                                <div class="col-sm-3">
-                                    <p id="orderSn">{{order.orderSn}}</p>
-                                </div>
-                                <label for="shippingSn" class="col-sm-2">快递单号</label>
-                                <div class="col-sm-5">
-                                    <p id="shippingSn">{{order.shippingSn}}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="loginUsername" class="col-sm-2">用户</label>
-                                <div class="col-sm-3">
-                                    <p id="loginUsername">{{order.customer.loginUsername}}</p>
-                                </div>
-                                <label for="consignee" class="col-sm-2">收货人</label>
-                                <div class="col-sm-5">
-                                    <p id="consignee">{{order.addr.consignee}}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="addr" class="col-sm-2">收货地址</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <p id="addr">{{order.addr.province}}{{order.addr.city}}{{order.addr.district}}-{{order.addr.address}}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="orderMoney" class="col-sm-2">订单金额</label>
-                                <div class="col-sm-3">
-                                    <p id="orderMoney">{{order.orderMoney}}</p>
-                                </div>
-                                <label for="districtMoney" class="col-sm-2">优惠金额</label>
-                                <div class="col-sm-5">
-                                    <p id="districtMoney">{{order.districtMoney}}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="shippingMoney" class="col-sm-2">运费金额</label>
-                                <div class="col-sm-3">
-                                    <p id="shippingMoney">{{order.shippingMoney}}</p>
-                                </div>
-                                <label for="paymentMoney" class="col-sm-2">支付金额</label>
-                                <div class="col-sm-5">
-                                    <p id="paymentMoney">{{order.paymentMoney}}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="createTime" class="col-sm-2">下单时间</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <p id="createTime">{{order.createTime}}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="shippingTime" class="col-sm-2">发货时间</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <p id="shippingTime">{{order.shippingTime}}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="payTime" class="col-sm-2">支付时间</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <p id="payTime">{{order.payTime}}</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="receiveTime" class="col-sm-2">收货时间</label>
-                                <div class="col-md-6 col-sm-10">
-                                    <p id="receiveTime">{{order.receiveTime}}</p>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+
+<div class="wrapper" id="container">
+    <header class="main-header">
+        <nav class="navbar navbar-fixed-top bg-primary">
+            <div class="navbar-header">
+                <a class="navbar-toggle" href="javascript:;" data-toggle="collapse" data-target=".navbar-collapse"><i class="icon icon-th-large"></i></a>
+                <a class="sidebar-toggle" href="javascript:;" data-toggle="push-menu"><i class="icon icon-bars"></i></a>
+                <a class="navbar-brand" href="#">
+                    <span class="logo">招宝商城</span>
+                    <span class="logo-mini">FS</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="javascript:;" data-toggle="push-menu"><i class="icon icon-bars"></i></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="javascript:;">
+                                    <span>
+                                        <i class="icon icon-bell-alt"></i>
+                                        <span class="label label-danger label-pill up">5</span>
+                                    </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;">
+                                    <span>
+                                        <i class="icon icon-envelope-alt"></i>
+                                        <span class="label label-success label-pill up">2</span>
+                                    </span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="javascript:;" data-toggle="dropdown"><i class="icon icon-user"></i> 管理员 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">资料设置</a></li>
+                                <li><a href="#">清除缓存</a></li>
+                                <li class="divider"></li>
+                                <li><a href="#">注销</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
-                <div class="row clearfix">
-                    <div class="col-md-12 column">
+            </div>
+        </nav>
+    </header>
+    <aside class="main-sidebar">
+        <section class="sidebar">
+            <ul id="treeMenu" class="sidebar-menu" data-widget="tree">
+                <li class="header">功能菜单</li>
+                <li class="treeview" id="menuTemplate">
+                    <a href="javascript:;">
+                        <span class="parent">主页</span>
+                        <span class="pull-right-container">
+							<i class="icon icon-angle-left"></i>
+						</span>
+                    </a>
+                    <ul class="treeview-menu child">
+                        <li><a href="/be/index"><i class="icon icon-circle-blank"></i> 页面演示</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+    <div class="content-wrapper">
+        <div class="content-header">
+            <ul class="breadcrumb">
+                <li><a href="#"><i class="icon icon-home"></i></a></li>
+                <li><a href="#">订单管理</a></li>
+                <li><a href="/be/order">订单列表</a></li>
+                <li class="active">订单详情</li>
+            </ul>
+        </div>
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="panel">
+                    <div class="panel-heading">
+                        <div class="panel-title">订单详情</div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-tools" style="margin-bottom: 15px;">
+                            <div class="col-md-12 column">
+                                <form class="form-horizontal">
+                                    <input id="orderId" type="hidden" value="${orderId}">
+                                    <div class="form-group">
+                                        <label for="orderSn" class="col-sm-2">订单编号</label>
+                                        <div class="col-sm-3">
+                                            <p id="orderSn">{{order.orderSn}}</p>
+                                        </div>
+                                        <label for="shippingSn" class="col-sm-2">快递单号</label>
+                                        <div class="col-sm-5">
+                                            <p id="shippingSn">{{order.shippingSn}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="loginUsername" class="col-sm-2">用户</label>
+                                        <div class="col-sm-3">
+                                            <p id="loginUsername">{{customer.loginUsername}}</p>
+                                        </div>
+                                        <label for="consignee" class="col-sm-2">收货人</label>
+                                        <div class="col-sm-5">
+                                            <p id="consignee">{{addr.consignee}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="addr" class="col-sm-2">收货地址</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <p id="addr">{{addr.province}}{{addr.city}}{{addr.district}}-{{addr.address}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="orderMoney" class="col-sm-2">订单金额</label>
+                                        <div class="col-sm-3">
+                                            <p id="orderMoney">{{order.orderMoney}}</p>
+                                        </div>
+                                        <label for="districtMoney" class="col-sm-2">优惠金额</label>
+                                        <div class="col-sm-5">
+                                            <p id="districtMoney">{{order.districtMoney}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="shippingMoney" class="col-sm-2">运费金额</label>
+                                        <div class="col-sm-3">
+                                            <p id="shippingMoney">{{order.shippingMoney}}</p>
+                                        </div>
+                                        <label for="paymentMoney" class="col-sm-2">支付金额</label>
+                                        <div class="col-sm-5">
+                                            <p id="paymentMoney">{{order.paymentMoney}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="createTime" class="col-sm-2">下单时间</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <p id="createTime">{{order.createTime}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="shippingTime" class="col-sm-2">发货时间</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <p id="shippingTime">{{order.shippingTime}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="payTime" class="col-sm-2">支付时间</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <p id="payTime">{{order.payTime}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="receiveTime" class="col-sm-2">收货时间</label>
+                                        <div class="col-md-6 col-sm-10">
+                                            <p id="receiveTime">{{order.receiveTime}}</p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
@@ -196,15 +219,17 @@
             </div>
         </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <div class="center-block" style="width:400px;max-width:100%;background-color:#ccc;">
-                <h3>无版权</h3>
-            </div>
-        </div>
-    </div>
 </div>
 
 
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/zui/js/zui.min.js" charset="utf-8"></script>
+<script src="/static/admin/js/app.js"></script>
+<script src="/static/js/vue.min.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/vue-router.js"></script>
+<script src="/static/admin/js/privilege.js"></script>
+<script src="/static/admin/js/detail.js"></script>
 </body>
 </html>

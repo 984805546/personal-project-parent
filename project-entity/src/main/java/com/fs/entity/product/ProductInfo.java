@@ -4,8 +4,10 @@ package com.fs.entity.product;/**
  */
 
 import com.fs.entity.other.BrandInfo;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
  * @create: 2019/12/03 09:15 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductInfo {
     //'商品ID'
     private Integer productId;
@@ -40,25 +44,4 @@ public class ProductInfo {
     private String descript;
     //'最后修改时间'
     private String modifiedTime;
-//
-//    private List<BrandInfo> brand;
-//
-//    private List<ProductCategory> category;
-
-    public ProductInfo() {
-    }
-
-    public ProductInfo(Integer productId, String productCore, String productName, Integer brandId, Integer categoryId, BigDecimal price, BigDecimal averageCost, String productionDate, Integer shelfLife, String descript, String modifiedTime) {
-        this.productId = productId;
-        this.productCore = productCore;
-        this.productName = productName;
-        this.brandId = brandId;
-        this.categoryId = categoryId;
-        this.price = price;
-        this.averageCost = averageCost;
-        this.productionDate = productionDate;
-        this.shelfLife = shelfLife;
-        this.descript = descript;
-        this.modifiedTime = modifiedTime;
-    }
 }

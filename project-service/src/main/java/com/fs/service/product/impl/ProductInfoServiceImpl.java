@@ -48,7 +48,7 @@ public class ProductInfoServiceImpl implements ProductInfoService {
     }
 
     @Override
-    public List<ProductInfo> getFilter(Integer pageNum, Integer pageSize, String productCore, String productName, Integer categoryId, Integer brandId) {
-        return infoDao.getFilter(pageNum, pageSize, productCore, productName, categoryId, brandId);
+    public List<ProductInfo> getFilter(Integer pageNum, Integer pageSize, Integer productId, String productCore, String productName, Integer categoryId, Integer brandId) {
+        return infoDao.getFilter(pageNum, pageSize, productId, productCore, productName, categoryId, brandId);
     }
 }

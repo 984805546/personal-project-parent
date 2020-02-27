@@ -19,11 +19,13 @@ public interface OrderCartDao {
 
     int insert(OrderCart cart);
 
-    int delete(Integer id);
+    int delete(Integer cartId);
 
     int update(OrderCart cart);
 
-    List<OrderCart> getAll(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+    OrderCart getById(Integer cartId);
 
-    OrderCart getById(Integer id);
+    OrderCart getByProductId(Integer customerId,Integer productId);
+
+    List<OrderCart> getByCustomer(Integer customerId);
 }

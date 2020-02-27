@@ -3,8 +3,10 @@ package com.fs.entity.customer;/**
  * @create: 2019/12/03 09:41
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program personal-project-parent 
@@ -13,6 +15,8 @@ import lombok.Data;
  * @create: 2019/12/03 09:41 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerLogin {
     //'用户ID'
     private Integer customerId;
@@ -22,14 +26,4 @@ public class CustomerLogin {
     private String password;
     //'最后修改时间'
     private String modifiedTime;
-
-    public CustomerLogin() {
-    }
-
-    public CustomerLogin(Integer customerId, String loginUsername, String password, String modifiedTime) {
-        this.customerId = customerId;
-        this.loginUsername = loginUsername;
-        this.password = password;
-        this.modifiedTime = modifiedTime;
-    }
 }

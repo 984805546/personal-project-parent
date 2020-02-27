@@ -3,8 +3,10 @@ package com.fs.entity.product;/**
  * @create: 2019/12/03 09:21
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program personal-project-parent 
@@ -13,6 +15,8 @@ import lombok.Data;
  * @create: 2019/12/03 09:21 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductPicInfo {
     //'商品图片ID'
     private Integer productPicId;
@@ -26,20 +30,4 @@ public class ProductPicInfo {
     private String picUrl;
     //'最后修改时间'
     private String modifiedTime;
-
-    public ProductPicInfo() {
-    }
-
-    public ProductPicInfo(Integer productPicId, Integer productId, Integer picMaster, String picDesc, String picUrl, String modifiedTime) {
-        this.productPicId = productPicId;
-        this.productId = productId;
-        this.picMaster = picMaster;
-        this.picDesc = picDesc;
-        this.picUrl = picUrl;
-        this.modifiedTime = modifiedTime;
-    }
-
-    public String getPicUrl() {
-        return "/file/download?filename="+picUrl;
-    }
 }

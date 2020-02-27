@@ -9,34 +9,61 @@
         <result property="productId" column="productId"/>
         <result property="productAmount" column="productAmount"/>
         <result property="price" column="price"/>
+        <result property="checked" column="checked"/>
         <result property="addTime" column="addTime"/>
         <result property="modifiedTime" column="modifiedTime"/>
+        <result property="productName" column="productName"/>
+        <result property="picUrl" column="picUrl"/>
     </resultMap>
-    <select id="getAll" resultMap="cart">
-        select customerId,productId,productAmount,price,addTime,modifiedTime
-        from order_cart
-        order by cartId
+
+    <select id="getByCustomer" resultMap="cart">
+        select cartId,customerId,c.productId,productAmount,c.price,checked,addTime,
+        c.modifiedTime,p.productName,i.picUrl
+        from order_cart c
+        left join product_info p on c.productId=p.productId
+        left join product_pic_info i on p.productId = i.productId
+        where i.picMaster = 1 and customerId = #{customerId}
+        order by cartId desc
     </select>
 
     <select id="getById" resultMap="cart">
-        select customerId,productId,productAmount,price,addTime,modifiedTime
-        from order_cart
-        where cartId = #{id}
+        select cartId,customerId,c.productId,productAmount,c.price,checked,addTime,
+        c.modifiedTime,p.productName,i.picUrl
+        from order_cart c
+        left join product_info p on c.productId=p.productId
+        left join product_pic_info i on p.productId = i.productId
+        where i.picMaster = 1 and cartId = #{cartId}
+        order by cartId desc
     </select>
 
-    <insert id="insert" >
-        insert into order_cart(customerId,productId,productAmount,price,addTime,modifiedTime)
-        values(#{customerId},#{productId},#{productAmount},#{price},#{addTime},#{modifiedTime})
+    <select id="getByProductId" resultMap="cart">
+        select cartId,customerId,c.productId,productAmount,c.price,checked,addTime,
+        c.modifiedTime,p.productName,i.picUrl
+        from order_cart c
+        left join product_info p on c.productId=p.productId
+        left join product_pic_info i on p.productId = i.productId
+        where i.picMaster = 1 and customerId = #{param1} and productId = #{param2}
+        order by cartId desc
+    </select>
+
+    <insert id="insert">
+        insert into order_cart(customerId,productId,productAmount,price,checked,addTime,modifiedTime)
+        values(#{customerId},#{productId},#{productAmount},#{price},'true',now(),now())
     </insert>
 
     <delete id="delete">
-        delete from order_cart where cartId = #{id}
+        delete from order_cart where cartId = #{cartId}
     </delete>
 
     <update id="update">
         update order_cart
-        set customerId = #{customerId},productId = #{productId},productAmount = #{productAmount},
-        price = #{price},addTime = #{addTime},modifiedTime = #{modifiedTime}
+        <set>
+            <if test="productAmount != null">productAmount = #{productAmount},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="checked != null">checked = #{checked},</if>
+            <if test="addTime != null">productCnt = #{addTime},</if>
+            <if test="modifiedTime == null">modifiedTime = now(),</if>
+        </set>
         where cartId = #{cartId}
     </update>
 </mapper>

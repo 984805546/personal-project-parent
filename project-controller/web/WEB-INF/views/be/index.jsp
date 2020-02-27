@@ -49,12 +49,12 @@
 							</a>
 						</li>
 						<li class="dropdown">
-							<a href="javascript:;" data-toggle="dropdown"><i class="icon icon-user"></i> 管理员 <span class="caret"></span></a>
+							<a id="user" href="javascript:;" data-toggle="dropdown" data="${user.id}"><i class="icon icon-user"></i> ${user.username} <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li><a href="#">资料设置</a></li>
 								<li><a href="#">清除缓存</a></li>
 								<li class="divider"></li>
-								<li><a href="#">注销</a></li>
+								<li><a href="/user/logout">注销</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -96,9 +96,9 @@
 								<i class="icon icon-file-text"></i>
 							</div>
 							<div class="info-box-content">
-								<span class="info-box-text">文章总量</span>
+								<span class="info-box-text">商品总数</span>
 								<span class="info-box-number">320
-                                        <small>篇</small>
+                                        <small>个</small>
                                     </span>
 							</div>
 						</div>
@@ -122,9 +122,9 @@
 								<i class="icon icon-bars"></i>
 							</div>
 							<div class="info-box-content">
-								<span class="info-box-text">栏目总量</span>
-								<span class="info-box-number">8
-                                        <small>个</small>
+								<span class="info-box-text">评论总数</span>
+								<span class="info-box-number">823
+                                        <small>次</small>
                                     </span>
 							</div>
 						</div>
@@ -135,7 +135,7 @@
 								<i class="icon icon-eye-open"></i>
 							</div>
 							<div class="info-box-content">
-								<span class="info-box-text">PV总量</span>
+								<span class="info-box-text">订单总数</span>
 								<span class="info-box-number">18953
                                         <small>次</small>
                                     </span>
@@ -153,7 +153,7 @@
 								<table class="table table-info">
 									<tr>
 										<td>产品名称</td>
-										<td>zui-admin</td>
+										<td>招宝商城</td>
 									</tr>
 									<tr>
 										<td>核心框架</td>
@@ -161,11 +161,11 @@
 									</tr>
 									<tr>
 										<td>开发作者</td>
-										<td>mofee（莫非）</td>
+										<td>Felix（方盛）</td>
 									</tr>
 									<tr>
 										<td>联系方式</td>
-										<td>QQ：205155513</td>
+										<td>QQ：984805546</td>
 									</tr>
 									<tr>
 										<td>交流讨论</td>
@@ -184,11 +184,11 @@
 								<table class="table table-info">
 									<tr>
 										<td>操作系统</td>
-										<td>Windows</td>
+										<td>Windows,IOS</td>
 									</tr>
 									<tr>
 										<td>运行环境</td>
-										<td>nginx/1.4.6</td>
+										<td>tomcat8.5.43</td>
 									</tr>
 									<tr>
 										<td>PHP版本</td>

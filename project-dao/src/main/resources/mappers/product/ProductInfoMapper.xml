@@ -58,6 +58,9 @@
         productionDate,shelfLife,descript,modifiedTime
         from product_info
         <where>
+            <if test=" productId >0 ">
+                and productId = #{productId}
+            </if>
             <if test=" productName != '' ">
                 and productName like concat('%',#{productName},'%')
             </if>

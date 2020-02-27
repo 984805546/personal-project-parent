@@ -11,77 +11,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Lowin</title>
-    <link rel="stylesheet" href="/static/admin/css/auth.css">
+    <!-- zui css -->
+    <link rel="stylesheet" href="/static/zui/css/zui.min.css">
+    <link rel="stylesheet" href="/static/zui/theme/blue.css">
+    <!-- app css -->
+    <link rel="stylesheet" href="/static/admin/css/app.css">
 </head>
 
-<body>
-<div class="lowin lowin-blue">
-    <div class="lowin-brand">
-        <img src="/static/admin/img/kodinger.jpg" alt="logo">
-    </div>
-    <div class="lowin-wrapper">
-        <div class="lowin-box lowin-login">
-            <div class="lowin-box-inner">
-                <form method="post">
-                    <p>管理员登录</p>
-                    <div class="lowin-group">
-                        <label>邮箱 <a href="#" class="login-back-link">登录</a></label>
-                        <input type="email" autocomplete="email" name="username" class="lowin-input">
-                    </div>
-                    <div class="lowin-group password-group">
-                        <label>密码 <a href="#" class="forgot-link">忘记密码?</a></label>
-                        <input type="password" name="password" autocomplete="current-password" class="lowin-input">
-                    </div>
-                    <button class="lowin-btn login-btn">
-                        登录
-                    </button>
-
-                    <div class="text-foot">
-                        没有账户? <a href="" class="register-link">注册</a>
-                    </div>
-                </form>
+<body class="bg-primary">
+<div class="page page-login text-center">
+    <div class="panel">
+        <div class="panel-body">
+            <div class="logo">
+                <a href="javaScript:;">ADMIN-LOGIN</a>
             </div>
-        </div>
-
-        <div class="lowin-box lowin-register">
-            <div class="lowin-box-inner">
-                <form method="post">
-                    <p>让我们创建您的帐户</p>
-                    <div class="lowin-group">
-                        <label>姓名</label>
-                        <input type="text" name="username" autocomplete="name" class="lowin-input">
-                    </div>
-                    <div class="lowin-group">
-                        <label>邮箱</label>
-                        <input type="email" autocomplete="email" name="email" class="lowin-input">
-                    </div>
-                    <div class="lowin-group">
-                        <label>密码</label>
-                        <input type="password" name="password" autocomplete="current-password" class="lowin-input">
-                    </div>
-                    <button class="lowin-btn">
-                        注册
-                    </button>
-
-                    <div class="text-foot">
-                        已有账户? <a href="" class="login-link">登录</a>
-                    </div>
-                </form>
-            </div>
+            <form action="/user/doLogin" method="post">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="ID/帐号">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="密码">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="code" name="code" placeholder="验证码">
+                </div>
+                <div class="form-group">
+                    <img id="kaptcha" src="/captcha/default"/>
+                    <a href="" onclick="changeImg()">看不清...</a>
+                </div>
+                <div class="form-group">${msg}</div>
+                <button type="submit" class="btn btn-lg btn-primary btn-block">登录</button>
+            </form>
         </div>
     </div>
-
-    <footer class="lowin-footer">
-
+    <footer class="page-copyright page-copyright-inverse">
+        <p>WEBSITE BY FS</p>
+        <p>© 2019. All RIGHT RESERVED.</p>
     </footer>
 </div>
 
-<script src="/static/admin/js/auth.js"></script>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/zui/js/zui.min.js" charset="utf-8"></script>
+<script src="/static/admin/js/app.js"></script>
 <script>
-    Auth.init({
-        login_url: '/user/doLogin',
-        forgot_url: '/user/forgot'
-    });
+    function changeImg() {
+        var imgSrc = $("#kaptcha");
+        imgSrc.attr("src", "/captcha/default?t="+new Date());
+    }
 </script>
 </body>
 </html>

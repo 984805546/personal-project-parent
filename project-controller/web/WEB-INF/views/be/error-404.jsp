@@ -25,11 +25,11 @@
             <h1>404</h1>
             <p>您要的页面找不到了！</p>
         </header>
-        <a class="btn btn-primary btn-round" href="index.html" style="margin-right:10px;">回到首页</a>
+        <a class="btn btn-primary btn-round" href="/be/index" style="margin-right:10px;">回到首页</a>
         <a class="btn btn-round" href="javascript:history.back();">返回上页</a>
         <footer class="page-copyright">
-            <p>WEBSITE BY 莫非</p>
-            <p>© 2018. All RIGHT RESERVED.</p>
+            <p>WEBSITE BY FS</p>
+            <p>© 2019. All RIGHT RESERVED.</p>
         </footer>
     </div>
 

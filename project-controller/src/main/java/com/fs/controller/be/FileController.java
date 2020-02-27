@@ -37,37 +37,21 @@ public class FileController {
     public static final String FILE_DIRECTORY = "/Users/fangchengfangcheng/Pictures/projectImages";
 
     @RequestMapping("/index")
-    @ResponseBody
     public String index() {
         return "/load";
     }
 
     @PostMapping("/upload")
     @ResponseBody
-    public ResponseVO upload(@RequestBody MultipartFile myfile) {
-//        List<String> pathName = null;
-//        for (MultipartFile file : myfile) {
-//            String fileName = file.getOriginalFilename();
-//            String exl = fileName.substring(fileName.lastIndexOf("."));
-//            fileName = UUID.randomUUID().toString() + exl;
-//            String path = FILE_DIRECTORY + File.separator + fileName;
-//            pathName.add(path);
-//            File f = new File(path);
-//            try {
-//                file.transferTo(f);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                throw new RuntimeException();
-//            }
-//        }
-        String fileName = myfile.getOriginalFilename();
+    public String upload(@RequestBody MultipartFile myFile) {
+        String fileName = myFile.getOriginalFilename();
         String exl = fileName.substring(fileName.lastIndexOf("."));
         fileName = UUID.randomUUID().toString() + exl;
         String path = FILE_DIRECTORY + File.separator + fileName;
         File f = new File(path);
         try {
-            myfile.transferTo(f);
-            return ResponseVO.builder().code("200").msg("success").data(path).build();
+            myFile.transferTo(f);
+            return fileName;
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();

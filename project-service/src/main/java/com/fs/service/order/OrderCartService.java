@@ -15,13 +15,17 @@ import java.util.List;
  * @create: 2019/12/02 11:01
  */
 public interface OrderCartService {
+
+
     int insert(OrderCart cart);
 
-    int delete(Integer id);
+    int delete(Integer cartId);
 
     int update(OrderCart cart);
 
-    List<OrderCart> getAll(Integer pageNum, Integer pageSize);
+    OrderCart getById(Integer cartId);
 
-    OrderCart getById(Integer id);
+    OrderCart getByProductId(Integer customerId,Integer productId);
+
+    List<OrderCart> getByCustomer(Integer customerId);
 }

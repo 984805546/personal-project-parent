@@ -15,13 +15,13 @@
     <select id="getAll" resultMap="pic">
         select productPicId,productId,picMaster,picDesc,picUrl,modifiedTime
         from product_pic_info
-        order by productPicId
+        order by productPicId desc
     </select>
 
     <select id="getPageHelper" resultMap="pic">
         select productPicId,productId,picMaster,picDesc,picUrl,modifiedTime
         from product_pic_info
-        order by productPicId
+        order by productPicId desc
     </select>
 
     <select id="getFilter" resultMap="pic">
@@ -29,6 +29,9 @@
         from product_pic_info i
         left join product_info p on i.productId = p.productId
         <where>
+            <if test=" productId != null ">
+                and i.productId = #{productId}
+            </if>
             <if test=" productName != '' ">
                 and productName like concat('%',#{productName},'%')
             </if>
@@ -36,7 +39,7 @@
                 and picMaster = #{picMaster}
             </if>
         </where>
-        order by productPicId
+        order by productPicId desc
     </select>
 
     <select id="getByUrl" resultMap="pic">
@@ -59,7 +62,7 @@
 
     <update id="update">
         update product_pic_info
-        set productId = #{productId}, picMaster = #{picMaster},
+        set productId = #{productId}, picMaster = #{picMaster}, picUrl = #{picUrl},
         picDesc = #{picDesc}, modifiedTime = now()
         where productPicId = #{productPicId}
     </update>

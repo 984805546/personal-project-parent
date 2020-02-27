@@ -5,8 +5,10 @@ package com.fs.entity.product;/**
 
 import com.fs.entity.customer.CustomerLogin;
 import com.fs.entity.order.OrderMaster;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program personal-project-parent
@@ -15,6 +17,8 @@ import lombok.Data;
  * @create: 2019/12/03 09:23
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductComment {
     //'评论ID'
     private Integer commentId;
@@ -36,9 +40,6 @@ public class ProductComment {
     private CustomerLogin customer;
 
     private OrderMaster order;
-
-    public ProductComment() {
-    }
 
     public ProductComment(Integer commentId, Integer productId, Integer orderId, Integer customerId, String content, String auditTime, String modifiedTime) {
         this.commentId = commentId;

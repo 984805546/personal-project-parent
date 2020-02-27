@@ -88,8 +88,8 @@ public class ProductController {
     @GetMapping("/search")
     public ResponseVO search(@RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
-                             String productCore,String productName,Integer categoryId,Integer brandId) {
-        List<ProductInfo> productInfos = productInfoService.getFilter(pageNum,pageSize,productCore,productName,categoryId,brandId);
+                             Integer productId, String productCore,String productName,Integer categoryId,Integer brandId) {
+        List<ProductInfo> productInfos = productInfoService.getFilter(pageNum,pageSize,productId,productCore,productName,categoryId,brandId);
         PageInfo pageInfo = new PageInfo(productInfos,5);
         ResponseVO responseVO = ResponseVO.builder().code("200").msg("success").data(pageInfo).build();
         return responseVO;

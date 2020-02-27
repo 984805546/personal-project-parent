@@ -3,10 +3,16 @@ package com.fs.controller.be;/**
  * @create: 2019/12/08 15:25
  */
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @program personal-project-parent 
@@ -98,4 +104,20 @@ public class IndexBeController {
         mav.setViewName("be/detail");
         return mav;
     }
+
+//    @RequestMapping("/cors")
+//    @CrossOrigin
+//    public void cors(HttpServletResponse response) throws IOException {
+//        RestTemplate restTemplate = new RestTemplate();
+//        String url = "http://3g.163.com/touch/reconstruct/article/list/BA8E6OEOwangning/0-5.html";
+//        ResponseEntity<String> entity = restTemplate.getForEntity(url, String.class);
+//        String result = entity.getBody();
+//        String newsType = "BA8E6OEOwangning";
+//        int newsTypeIndex = result.indexOf(newsType);
+//
+//        String jsonResult = result.substring(newsTypeIndex + newsType.length() + 2,
+//                result.length() - 2);
+//        response.setContentType("application/json;charset=UTF-8");
+//        response.getWriter().print(jsonResult);
+//    }
 }

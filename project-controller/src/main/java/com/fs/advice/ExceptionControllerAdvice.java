@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author: fs
  * @create: 2019/12/02 11:31
  */
-//@ControllerAdvice
-//public class ExceptionControllerAdvice {
-//    @ExceptionHandler(RuntimeException.class)
-//    @ResponseBody
-//    public ResponseVO handlerRuntime() {
-//        return ResponseVO.builder().code("500").msg("操作失败！！").build();
-//    }
-//}
+@ControllerAdvice
+public class ExceptionControllerAdvice {
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseBody
+    public ResponseVO handlerRuntime(RuntimeException re) {
+        return ResponseVO.builder().code("500").msg("服务器异常，请联系管理员！！").build();
+    }
+}

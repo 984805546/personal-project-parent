@@ -54,7 +54,7 @@ public class ProductPicInfoServiceImpl implements ProductPicInfoService {
     }
 
     @Override
-    public List<ProductPicInfo> getFilter(Integer pageNum, Integer pageSize, String productName, Integer picMaster) {
-        return picInfoDao.getFilter(pageNum, pageSize,productName,picMaster);
+    public List<ProductPicInfo> getFilter(Integer pageNum, Integer pageSize, Integer productId, String productName, Integer picMaster) {
+        return picInfoDao.getFilter(pageNum, pageSize, productId, productName, picMaster);
     }
 }

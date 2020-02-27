@@ -25,7 +25,8 @@ $(function(){
             picDesc: "",
             picUrl: "",
             searchOne:"",
-            searchTwo:""
+            searchTwo:"",
+            uri:"/file/download?filename="
         },
         mounted: function () {
             start(this.pageNum, this.pageSize),
@@ -46,7 +47,6 @@ $(function(){
                     fileRead.readAsDataURL(file);
                     fileRead.onload = function () {
                         $("#image").attr("src", fileRead.result);
-
                     };
                 } else {
                     $("#imgDiv").hide();
@@ -86,9 +86,9 @@ $(function(){
                 vm.picDesc = list.picDesc;
                 vm.picUrl = list.picUrl;
 
-                $("#myfile").hide();
+                $("#myFile").hide();
                 $("#imgDiv").show();
-                $("#image").attr("src", list.picUrl);
+                $("#image").attr("src", vm.uri+list.picUrl);
             },
             details: function (list) {
                 $("#myModalLabel").html("图片详情");
@@ -106,7 +106,7 @@ $(function(){
                 $("#myModal").modal("show");
             },
             insert: function () {
-                $("#myModalLabel").html("添加商品信息");
+                $("#myModalLabel").html("添加图片信息");
                 $("#save").data("op", "insert");
                 vm.productPicId = "";
                 vm.productId = "";
@@ -115,25 +115,41 @@ $(function(){
                 vm.picUrl = "";
 
                 $("#imgDiv").hide();
-                $("#myfile").show();
+                $("#myFile").show();
                 $("#details").prop("hidden","");
                 $("#myModal").modal('show');
+            },
+            uploadFile: function (formData) {
+                axios({
+                    method: "POST",
+                    url: "/file/upload",
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    responseType: "json"
+                }).then(function(response){
+                    formData.delete("myFile");
+                    vm.picUrl = response.data;
+                    formData.append("picUrl", vm.picUrl);
+                    axios({
+                        method:"POST",
+                        url:"/picture/insert",
+                        data: formData,
+                        cache:false,
+                        processData:false,
+                        contentType:false,
+                        responseType:"json"
+                    }).then(response=>(start(vm.pageNum,vm.pageSize)));
+                });
             },
             save: function () {
                 const op = $("#save").data("op");
                 const picture = new FormData(document.querySelector("#picture"));
                 picture.append("picMaster", vm.checked ? 1 : 0);
-                $("#myModal").modal('hide');
+                $("#myModal"    ).modal('hide');
                 if (op != "update") {
-                    axios({
-                        method:"POST",
-                        url:"/picture/insert",
-                        data: picture,
-                        cache:false,
-                        processData:false,
-                        contentType:false,
-                        responseType:"json"
-                    }).then(response=>(alert("添加成功"),start(vm.pageNum,vm.pageSize)));
+                    vm.uploadFile(picture);
                 }else{
                     picture.append("productPicId", vm.productPicId);
                     axios({
@@ -146,7 +162,6 @@ $(function(){
                         responseType:"json"
                     }).then(response=>(alert("修改成功"),start(vm.pageNum,vm.pageSize)));
                 };
-
             }
         },
         watch:{
@@ -154,9 +169,5 @@ $(function(){
                 start(vm.pageNum, vm.pageSize)
             }
         }
-    });
-    $('#treeMenu').on('click', 'a', function() {
-        $('#treeMenu li.active').removeClass('active');
-        $(this).closest('li').addClass('active');
     });
 });

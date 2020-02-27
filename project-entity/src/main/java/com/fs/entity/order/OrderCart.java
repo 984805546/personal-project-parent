@@ -3,8 +3,10 @@ package com.fs.entity.order;/**
  * @create: 2019/12/03 09:31
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -15,6 +17,8 @@ import java.math.BigDecimal;
  * @create: 2019/12/03 09:31
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderCart {
     //'购物⻋ID'
     private Integer cartId;
@@ -26,21 +30,13 @@ public class OrderCart {
     private Integer productAmount;
     //'商品价格'
     private BigDecimal price;
+    //是否选中
+    private String checked;
     //'加入购物⻋时间'
     private String addTime;
     //'最后修改时间'
     private String modifiedTime;
 
-    public OrderCart() {
-    }
-
-    public OrderCart(Integer cartId, Integer customerId, Integer productId, Integer productAmount, BigDecimal price, String addTime, String modifiedTime) {
-        this.cartId = cartId;
-        this.customerId = customerId;
-        this.productId = productId;
-        this.productAmount = productAmount;
-        this.price = price;
-        this.addTime = addTime;
-        this.modifiedTime = modifiedTime;
-    }
+    private String productName;
+    private String picUrl;
 }

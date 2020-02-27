@@ -39,12 +39,17 @@ public class OrderCartServiceImpl implements OrderCartService {
     }
 
     @Override
-    public List<OrderCart> getAll(Integer pageNum, Integer pageSize) {
-        return cartDao.getAll(pageNum, pageSize);
+    public OrderCart getById(Integer id) {
+        return cartDao.getById(id);
     }
 
     @Override
-    public OrderCart getById(Integer id) {
-        return cartDao.getById(id);
+    public OrderCart getByProductId(Integer customerId, Integer productId) {
+        return cartDao.getByProductId(customerId, productId);
+    }
+
+    @Override
+    public List<OrderCart> getByCustomer(Integer customerId) {
+        return cartDao.getByCustomer(customerId);
     }
 }

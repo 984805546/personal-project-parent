@@ -3,11 +3,11 @@ package config;/**
  * @create: 2019/12/02 11:47
  */
 
+import com.google.code.kaptcha.servlet.KaptchaServlet;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.MultipartConfigElement;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRegistration;
+import javax.servlet.*;
 
 /**
  * @program personal-project-parent 
@@ -19,8 +19,13 @@ public class SystemConfig extends AbstractAnnotationConfigDispatcherServletIniti
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(new MultipartConfigElement(""));
+        registration.setMultipartConfig(new MultipartConfigElement("",2000000,2000000,0));
     }
+
+//    @Override
+//    public void onStartup(ServletContext servletContext) throws ServletException {
+//        super.onStartup(servletContext);
+//    }
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
@@ -37,4 +42,11 @@ public class SystemConfig extends AbstractAnnotationConfigDispatcherServletIniti
         return new String[]{"/"};
     }
 
+    @Override
+    protected Filter[] getServletFilters() {
+        CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
+        encodingFilter.setEncoding("utf-8");
+        encodingFilter.setForceEncoding(true);
+        return new Filter[] {encodingFilter};
+    }
 }

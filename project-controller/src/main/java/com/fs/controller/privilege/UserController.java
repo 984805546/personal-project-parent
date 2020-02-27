@@ -30,20 +30,39 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/doLogin")
-    public String doLogin(User user, HttpServletRequest request) {
+    public String doLogin(User user, String code, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("user", userService.findUser(user));
-
-        return "be/index";
+        String kaptchaExpected = request.getSession().getAttribute("captcha").toString();
+        if (code.equals(kaptchaExpected)) {
+            request.getSession().setAttribute("msg", null);
+            return "redirect:/be/index";
+        } else {
+            request.getSession().setAttribute("msg", "验证码输入错误！");
+            return "redirect:/be/login";
+        }
     }
 
     @RequestMapping("/forgot")
-    public String forgot(User user) {
+    public String forgot(User user, String code,HttpServletRequest request) {
         userService.insert(user);
+        String kaptchaExpected = (String)request.getSession()
+                .getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+        if (code.equals(kaptchaExpected)) {
+            request.getSession().setAttribute("msg2", null);
+        } else {
+            request.getSession().setAttribute("msg2", "验证码输入错误！");
+        }
         return "be/login";
     }
 
 
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/be/login";
+    }
 
     @RequestMapping("/all")
     @ResponseBody

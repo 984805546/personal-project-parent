@@ -5,8 +5,10 @@ package com.fs.entity.order;/**
 
 import com.fs.entity.customer.CustomerAddr;
 import com.fs.entity.customer.CustomerLogin;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -17,6 +19,8 @@ import java.math.BigDecimal;
  * @create: 2019/12/03 09:25 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderMaster {
     //'订单ID'
     private Integer orderId;
@@ -52,25 +56,4 @@ public class OrderMaster {
     private CustomerLogin customer;
 
     private CustomerAddr addr;
-
-    public OrderMaster() {
-    }
-
-    public OrderMaster(Integer orderId, String orderSn, Integer customerId, Integer customerAddrId, BigDecimal orderMoney, BigDecimal districtMoney, BigDecimal shippingMoney, BigDecimal paymentMoney, String shippingSn, String createTime, String shippingTime, String payTime, String receiveTime, Integer orderStatus, String modifiedTime) {
-        this.orderId = orderId;
-        this.orderSn = orderSn;
-        this.customerId = customerId;
-        this.customerAddrId = customerAddrId;
-        this.orderMoney = orderMoney;
-        this.districtMoney = districtMoney;
-        this.shippingMoney = shippingMoney;
-        this.paymentMoney = paymentMoney;
-        this.shippingSn = shippingSn;
-        this.createTime = createTime;
-        this.shippingTime = shippingTime;
-        this.payTime = payTime;
-        this.receiveTime = receiveTime;
-        this.orderStatus = orderStatus;
-        this.modifiedTime = modifiedTime;
-    }
 }

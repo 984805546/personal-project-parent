@@ -3,8 +3,10 @@ package com.fs.entity.customer;/**
  * @create: 2019/12/03 09:45
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program personal-project-parent
@@ -13,6 +15,8 @@ import lombok.Data;
  * @create: 2019/12/03 09:45
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerAddr {
     //'自增主键ID'
     private Integer customerAddrId;
@@ -34,20 +38,4 @@ public class CustomerAddr {
     private Integer isDefault;
     //'最后修改时间'
     private String modifiedTime;
-
-    public CustomerAddr() {
-    }
-
-    public CustomerAddr(Integer customerAddrId, Integer customerId, String consignee, String consigneePhone, String province, String city, String district, String address, Integer isDefault, String modifiedTime) {
-        this.customerAddrId = customerAddrId;
-        this.customerId = customerId;
-        this.consignee = consignee;
-        this.consigneePhone = consigneePhone;
-        this.province = province;
-        this.city = city;
-        this.district = district;
-        this.address = address;
-        this.isDefault = isDefault;
-        this.modifiedTime = modifiedTime;
-    }
 }

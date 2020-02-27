@@ -3,8 +3,10 @@ package com.fs.entity.other;/**
  * @create: 2019/12/03 09:39
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program personal-project-parent 
@@ -13,6 +15,8 @@ import lombok.Data;
  * @create: 2019/12/03 09:39 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Admin {
     //'主键ID'
     private Integer adminId;
@@ -20,13 +24,4 @@ public class Admin {
     private String adminUsername;
     //'管理密码'
     private String adminPassword;
-
-    public Admin() {
-    }
-
-    public Admin(Integer adminId, String adminUsername, String adminPassword) {
-        this.adminId = adminId;
-        this.adminUsername = adminUsername;
-        this.adminPassword = adminPassword;
-    }
 }

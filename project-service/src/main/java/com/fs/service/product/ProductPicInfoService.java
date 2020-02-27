@@ -27,5 +27,5 @@ public interface ProductPicInfoService {
 
     List<ProductPicInfo> getPageHelper(Integer pageNum, Integer pageSize);
 
-    List<ProductPicInfo> getFilter(Integer pageNum, Integer pageSize, String productName, Integer picMaster);
+    List<ProductPicInfo> getFilter(Integer pageNum, Integer pageSize, Integer productId, String productName, Integer picMaster);
 }

@@ -54,12 +54,12 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="javascript:;" data-toggle="dropdown"><i class="icon icon-user"></i> 管理员 <span class="caret"></span></a>
+                            <a id="user" href="javascript:;" data-toggle="dropdown" data="${user.id}"><i class="icon icon-user"></i> ${user.username} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">资料设置</a></li>
                                 <li><a href="#">清除缓存</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">注销</a></li>
+                                <li><a href="/user/logout">注销</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -123,20 +123,22 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
+                                <th>品牌logo</th>
                                 <th>品牌名称</th>
                                 <th>联系电话</th>
                                 <th>品牌网络</th>
-                                <th>品牌logo URL</th>
                                 <th>品牌描述</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for='list in info.list'>
+                                <td>
+                                    <img :src="uri+list.brandLogo" width="50px" height="50px" class="img-rounded">
+                                </td>
                                 <td>{{list.brandName}}</td>
                                 <td>{{list.telephone}}</td>
-                                <td>{{list.brandWeb}}</td>
-                                <td>{{list.brandLogo}}</td>
+                                <td><a :href="list.brandWeb">{{list.brandWeb}}</a></td>
                                 <td>{{list.brandDesc}}</td>
                                 <td>
                                     <a href='#' class='delete btn btn-xs btn-danger' @click="deleteRow(list.brandId)">删除</a>
@@ -178,6 +180,18 @@
                 <div class="modal-body">
                     <form class="form-horizontal" role="form" id="brandInfo">
                         <div class="form-group">
+                            <label for="myFile" class="col-sm-2 control-label">品牌logo</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    <input type="file" name="myFile" id="myFile" multiple="multiple"
+                                           class="form-control" @change="changeImage($event)"/>
+                                </div>
+                                <div id="imgDiv" style="display: none">
+                                    <img src="" id="image" style="width: 230px;height: 200px">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="brandName" class="col-sm-2 control-label">品牌名称</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="brandName" name="brandName" v-model="brandName"/>
@@ -193,12 +207,6 @@
                             <label for="brandWeb" class="col-sm-2 control-label">品牌网络</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="brandWeb" name="brandWeb" v-model="brandWeb"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="brandLogo" class="col-sm-2 control-label">品牌logo URL</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="brandLogo" name="brandLogo" v-model="brandLogo"/>
                             </div>
                         </div>
                         <div class="form-group">

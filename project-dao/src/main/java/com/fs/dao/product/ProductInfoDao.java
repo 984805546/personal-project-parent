@@ -28,6 +28,7 @@ public interface ProductInfoDao {
     List<ProductInfo> getPageHelper(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     List<ProductInfo> getFilter(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,
-                                @Param("productCore") String productCore, @Param("productName")String productName,
-                                @Param("categoryId")Integer categoryId, @Param("brandId")Integer brandId);
+                                @Param("productId")Integer productId, @Param("productCore") String productCore,
+                                @Param("productName")String productName, @Param("categoryId")Integer categoryId,
+                                @Param("brandId")Integer brandId);
 }

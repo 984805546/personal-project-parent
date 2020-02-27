@@ -3,7 +3,9 @@ package com.fs.entity.order;/**
  * @create: 2019/12/17 20:17
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -15,6 +17,8 @@ import java.math.BigDecimal;
  */
 //'订单详情表'
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderDetail {
     //订单详情表ID
     private Integer orderDetailId;
@@ -32,18 +36,4 @@ public class OrderDetail {
     private Integer wId;
     //最后修改时间
     private String modifiedTime;
-
-    public OrderDetail() {
-    }
-
-    public OrderDetail(Integer orderDetailId, Integer orderId, Integer productId, String productName, Integer productCnt, BigDecimal productPrice, Integer wId, String modifiedTime) {
-        this.orderDetailId = orderDetailId;
-        this.orderId = orderId;
-        this.productId = productId;
-        this.productName = productName;
-        this.productCnt = productCnt;
-        this.productPrice = productPrice;
-        this.wId = wId;
-        this.modifiedTime = modifiedTime;
-    }
 }

@@ -56,12 +56,12 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="javascript:;" data-toggle="dropdown"><i class="icon icon-user"></i> 管理员 <span class="caret"></span></a>
+                            <a id="user" href="javascript:;" data-toggle="dropdown" data="${user.id}"><i class="icon icon-user"></i> ${user.username} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">资料设置</a></li>
                                 <li><a href="#">清除缓存</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">注销</a></li>
+                                <li><a href="/user/logout">注销</a></li>
                             </ul>
                         </li>
                     </ul>

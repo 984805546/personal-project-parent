@@ -32,5 +32,6 @@ public interface ProductPicInfoDao {
     List<ProductPicInfo> getPageHelper(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
 
     List<ProductPicInfo> getFilter(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize,
-                                        @Param("productName") String productName, @Param("picMaster") Integer picMaster);
+                                   @Param("productId") Integer productId, @Param("productName") String productName,
+                                   @Param("picMaster") Integer picMaster);
 }

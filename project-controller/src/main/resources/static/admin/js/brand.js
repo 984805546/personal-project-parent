@@ -19,6 +19,7 @@ $(function(){
             pageNum: 1,
             pageSize: 5,
             search: "",
+            uri:"/file/download?filename=",
             brandId: 0,
             brandName: "",
             telephone: "",
@@ -28,6 +29,19 @@ $(function(){
         },
         mounted: start(this.pageNum, this.pageSize),
         methods:{
+            changeImage: function (data) {
+                if (data.target.files[0] != null) {
+                    $("#imgDiv").show();
+                    let file = data.target.files[0];
+                    let fileRead = new FileReader();
+                    fileRead.readAsDataURL(file);
+                    fileRead.onload = function () {
+                        $("#image").attr("src", fileRead.result);
+                    };
+                } else {
+                    $("#imgDiv").hide();
+                }
+            },
             searchName:function(){
                 axios.get('/brand/search', {
                     params: {
@@ -62,6 +76,7 @@ $(function(){
             update: function (list) {
                 $("#myModalLabel").html("修改品牌信息");
                 $("#save").data("op", "update");
+                console.log(list);
                 vm.brandId = list.brandId;
                 vm.brandName = list.brandName;
                 vm.telephone = list.telephone;
@@ -69,6 +84,10 @@ $(function(){
                 vm.brandLogo = list.brandLogo;
                 vm.brandDesc = list.brandDesc;
 
+
+                $("#myFile").hide();
+                $("#imgDiv").show();
+                $("#image").attr("src", vm.uri+list.brandLogo);
                 $("#myModal").modal("show");
             },
             insert: function () {
@@ -83,6 +102,29 @@ $(function(){
 
                 $("#myModal").modal('show');
             },
+            uploadFile: function (formData) {
+                axios({
+                    method: "POST",
+                    url: "/file/upload",
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    responseType: "json"
+                }).then(function(response){
+                    formData.delete("myFile");
+                    formData.append("brandLogo", response.data);
+                    axios({
+                        method:"POST",
+                        url:"/brand/insert",
+                        data: formData,
+                        cache:false,
+                        processData:false,
+                        contentType:false,
+                        responseType:"json"
+                    }).then(response=>(alert("添加成功"),start(vm.pageNum,vm.pageSize)));
+                });
+            },
             save: function () {
                 const op = $("#save").data("op");
 
@@ -90,15 +132,7 @@ $(function(){
                 brandInfo.append("brandId", vm.brandId);
                 $("#myModal").modal('hide');
                 if (op != "update") {
-                    axios({
-                        method:"POST",
-                        url:"/brand/insert",
-                        data: brandInfo,
-                        cache:false,
-                        processData:false,
-                        contentType:false,
-                        responseType:"json"
-                    }).then(response=>(alert("添加成功"),start(vm.pageNum,vm.pageSize)));
+                    vm.uploadFile(brandInfo);
                 }else{
                     axios({
                         method:"POST",

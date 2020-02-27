@@ -6,6 +6,7 @@ package com.fs.entity.other;/**
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program personal-project-parent
@@ -14,6 +15,8 @@ import lombok.Data;
  * @create: 2019/12/02 09:43
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BrandInfo {
     //'品牌ID'
     private Integer brandId;
@@ -29,16 +32,4 @@ public class BrandInfo {
     private String brandDesc;
     //'最后修改时间'
     private String modifiedTime;
-
-    public BrandInfo() {
-    }
-
-    public BrandInfo(Integer brandId, String brandName, String telephone, String brandWeb, String brandLogo, String brandDesc) {
-        this.brandId = brandId;
-        this.brandName = brandName;
-        this.telephone = telephone;
-        this.brandWeb = brandWeb;
-        this.brandLogo = brandLogo;
-        this.brandDesc = brandDesc;
-    }
 }

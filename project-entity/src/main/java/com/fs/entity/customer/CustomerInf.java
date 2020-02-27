@@ -3,8 +3,10 @@ package com.fs.entity.customer;/**
  * @create: 2019/12/03 09:43
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program personal-project-parent
@@ -13,6 +15,8 @@ import lombok.Data;
  * @create: 2019/12/03 09:43
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class CustomerInf {
     //'自增主键ID'
     private Integer customerInfId;
@@ -34,20 +38,4 @@ public class CustomerInf {
     private String registerTime;
     //'最后修改时间'
     private String modifiedTime;
-
-    public CustomerInf() {
-    }
-
-    public CustomerInf(Integer customerInfId, Integer customerId, String customerName, Integer identityCardType, String identityCardNo, String mobilePhone, String customerEmail, String gender, String registerTime, String modifiedTime) {
-        this.customerInfId = customerInfId;
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.identityCardType = identityCardType;
-        this.identityCardNo = identityCardNo;
-        this.mobilePhone = mobilePhone;
-        this.customerEmail = customerEmail;
-        this.gender = gender;
-        this.registerTime = registerTime;
-        this.modifiedTime = modifiedTime;
-    }
 }

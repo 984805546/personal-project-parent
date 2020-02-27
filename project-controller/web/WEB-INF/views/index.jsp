@@ -57,12 +57,12 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="javascript:;" data-toggle="dropdown"><i class="icon icon-user"></i> 管理员 <span class="caret"></span></a>
+                            <a id="user" href="javascript:;" data-toggle="dropdown" data="${user.id}"><i class="icon icon-user"></i> ${user.username} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">资料设置</a></li>
                                 <li><a href="#">清除缓存</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">注销</a></li>
+                                <li><a href="/user/logout">注销</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -112,6 +112,14 @@
 
             <ul id="tree" class="ztree"></ul>
 
+            <form id="checkTest">
+                <input name="userId" type="checkbox" value="1">
+                <input name="userId" type="checkbox" value="2">
+                <input name="userId" type="checkbox" value="3">
+                <input name="userId" type="checkbox" value="4">
+            </form>
+            <input id="btn" type="button" value="tj" onclick="delTest()">
+
             <input type="button" id="btnSave" value="save"/>
         </div>
     </div>
@@ -124,9 +132,63 @@
 <script src="/static/js/vue.min.js"></script>
 <script src="/static/js/axios.min.js"></script>
 <script src="/static/js/vue-router.js"></script>
-<script src="/static/admin/js/privilege.js"></script>
-
+<%--<script src="/static/admin/js/privilege.js"></script>--%>
 <script>
+    var buildTree = function (data, parentId) {
+        var tree = [];
+        for (var i = 0; i < data.length; i++) {
+            var node = data[i];
+            if (node.pid == parentId) {
+                var newNode = {};
+                newNode.id = node.id;
+                newNode.name = node.name;
+                newNode.uri = node.uri;
+                newNode.children = buildTree(data, node.id);
+                tree.push(newNode);
+            }
+        }
+        return tree;
+    };
+
+    var generateMenu = function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var menuItemData = data[i];
+            if(menuItemData.children.length==0){
+                continue;
+            }
+            var $menuItem = $("#menuTemplate").clone();
+            $menuItem.find(".parent").text(menuItemData.name);
+            $menuItem.find(".child").empty();
+            for (var j = 0; j < menuItemData.children.length; j++) {
+                var $menuChildItem = $("<li><a><span></span></a></li>");
+                $menuChildItem.find("a").attr("href",menuItemData.children[j].uri);
+                $menuChildItem.find("span").text(menuItemData.children[j].name);
+                $menuItem.find(".child").append($menuChildItem);
+            }
+            $("#treeMenu").append($menuItem);
+        }
+    };
+    // $.getJSON("/rp/query", {"id": 1}, function (result) {
+    // 	generateMenu(buildTree(result,0));
+    // });
+    axios.get('/rp/query', {
+        params: {
+            id: 1
+        },
+        responseType: "json"
+    }).then(response => (generateMenu(buildTree(response.data,0))));
+
+    $('#treeMenu').on('click', 'a', function() {
+        $('#treeMenu li.active').removeClass('active');
+        $(this).closest('li').addClass('active');
+    });
+</script>
+<script>
+    function delTest() {
+        alert($("#checkTest").serialize());
+    }
+
+    var user = $("#user").attr("data");
     var setting = {
         check: {
             //使用复选框

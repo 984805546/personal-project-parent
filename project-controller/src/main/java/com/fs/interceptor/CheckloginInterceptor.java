@@ -35,7 +35,7 @@ public class CheckloginInterceptor implements HandlerInterceptor {
 
     @Autowired
     private PrivilegeService privilegeService;
-    private String loginUrl = "be/login";
+    private String loginUrl = "login";
 
 
     @Override
@@ -64,7 +64,7 @@ public class CheckloginInterceptor implements HandlerInterceptor {
         if(isAllowd(list, requestUri)) {
             return true;
         }else {
-            response.sendRedirect("be/nopermission");
+            response.sendRedirect("nopermission");
             return false;
         }
     }
@@ -79,7 +79,6 @@ public class CheckloginInterceptor implements HandlerInterceptor {
             }
         }
         return isAllowd;
-
     }
 
     //将权限中的地址分开（例如有Uri="/be/customer,/be/comment"）

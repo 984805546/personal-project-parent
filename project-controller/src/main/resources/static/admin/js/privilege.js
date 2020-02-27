@@ -1,4 +1,5 @@
 $(function () {
+    var user = $("#user").attr("data");
     var buildTree = function (data, parentId) {
         var tree = [];
         for (var i = 0; i < data.length; i++) {
@@ -38,13 +39,13 @@ $(function () {
     // });
     axios.get('/rp/query', {
         params: {
-            id: 1
+            id: 1//user
         },
         responseType: "json"
     }).then(response => (generateMenu(buildTree(response.data,0))));
 
     $('#treeMenu').on('click', 'a', function() {
-    $('#treeMenu li.active').removeClass('active');
-    $(this).closest('li').addClass('active');
+        $('#treeMenu li.active').removeClass('active');
+        $(this).closest('li').addClass('active');
     });
 });

@@ -13,13 +13,13 @@
     <select id="getAll" resultMap="category">
         select categoryId,categoryName,categoryCode,modifiedTime
         from product_category
-        order by categoryId
+        order by categoryId desc
     </select>
 
     <select id="getPageHelper" resultMap="category">
         select categoryId,categoryName,categoryCode,modifiedTime
         from product_category
-        order by categoryId
+        order by categoryId desc
     </select>
 
     <select id="getByName" resultMap="category">
@@ -27,7 +27,7 @@
         select categoryId,categoryName,categoryCode,modifiedTime
         from product_category
         where categoryName like #{Name}
-        order by categoryId
+        order by categoryId desc
     </select>
 
     <insert id="insert" >

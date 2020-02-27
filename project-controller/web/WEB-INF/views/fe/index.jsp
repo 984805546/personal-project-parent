@@ -30,6 +30,7 @@
     <!-- jquery
     ============================================ -->
     <script src="/static/js/jquery-3.3.1.min.js"></script>
+
     <!-- Vue JS
     ============================================ -->
     <script src="/static/js/vue.min.js"></script>
@@ -39,9 +40,9 @@
 </head>
 <body>
 <div id="HomeBody">
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
 <!-- header start -->
 <header class="header-area">
@@ -87,7 +88,7 @@
 <%--                                            </s:forEach>--%>
                                             <li>
                                                         <span class="sub-total-cart text-center">
-                                                            小计 <span>${cart.total}</span>
+                                                            小计 <span></span>
                                                             <a href="/static/customer/cart" class="view-cart active">查看购物车</a>
                                                             <a href="/static/customer/checkout" class="view-cart">结账</a>
                                                         </span>
@@ -332,411 +333,411 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-xs-12">
-                <div class="section-tab">
-                    <div class="section-tab-menu text-left">
-                        <ul role="tablist">
-                            <li role="presentation" class="active"><a href="#new" aria-controls="new" role="tab" data-toggle="tab">新款</a></li>
-                            <li role="presentation"><a href="#featured" aria-controls="featured" role="tab" data-toggle="tab">精选</a></li>
-                            <li role="presentation"><a href="#best" aria-controls="best" role="tab" data-toggle="tab">畅销</a></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="tab-content row">
-                        <div id="new" role="tabpanel" class="active section-tab-item">
-                            <div class="tab-item-slider">
-                                <div class="col-xs-12 col-width">
-                                    <div class="single-product">
-                                        <div class="single-product-item">
-                                            <div class="single-product-img clearfix hover-effect">
-                                                <a href="#">
-                                                    <img class="primary-image" src="/static/customer/img/product/1.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="single-product-info">
-                                                <div class="pro-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="pro-price">
-                                                    <span class="new-price">$150</span>
-                                                    <span class="old-price">$180</span>
-                                                </div>
-                                                <div class="pro-name">
-                                                    <h4><a href="#">Macbook pro系列 13.3寸</a></h4>
-                                                </div>
-                                            </div>
-                                            <div class="wish-icon-hover text-center">
-                                                <ul>
-                                                    <li><a href="#" data-toggle="tooltip" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a class="modal-view" href="#" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#" data-toggle="tooltip" title="Compage"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#" data-toggle="tooltip" title="Like it!"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-width" v-for="p in product">
-                                    <div class="single-product">
-                                        <div class="single-product-item">
-                                            <div class="single-product-img clearfix hover-effect">
-                                                <a href="#">
-                                                    <img v-for="pic in picture" class="primary-image" :src="pic.picUrl" alt=""
-                                                         v-if="pic.productId === p.productId && pic.picMaster === 1">
-                                                </a>
-                                            </div>
-                                            <div class="single-product-info">
-                                                <div class="pro-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="pro-price">
-                                                    <span class="new-price">{{p.averageCost}}</span>
-                                                    <span class="old-price">{{p.price}}</span>
-                                                </div>
-                                                <div class="pro-name">
-                                                    <h4><a href="#">{{p.productName}}</a></h4>
-                                                </div>
-                                            </div>
-                                            <div class="wish-icon-hover text-center">
-                                                <ul>
-                                                    <li><a href="#" data-toggle="tooltip" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a class="modal-view" data-toggle="modal" @click="openModel(p)"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#" data-toggle="tooltip" title="Compage"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#" data-toggle="tooltip" title="Like it!"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="featured" role="tabpanel" class="section-tab-item">
-                            <div class="tab-item-slider">
-                                <div class="col-xs-12 col-width">
-                                    <div class="single-product">
-                                        <div class="single-product-item">
-                                            <div class="single-product-img clearfix hover-effect">
-                                                <a href="#">
-                                                    <img class="primary-image" src="/static/customer/img/product/9.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="single-product-info clearfix">
-                                                <div class="pro-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="pro-price">
-                                                    <span class="new-price">$150</span>
-                                                    <span class="old-price">$180</span>
-                                                </div>
-                                                <div class="pro-name">
-                                                    <h4><a href="#">夏季短袖</a></h4>
-                                                </div>
-                                            </div>
-                                            <div class="wish-icon-hover text-center">
-                                                <ul>
-                                                    <li><a href="#" data-toggle="tooltip" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a class="modal-view" href="#" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#" data-toggle="tooltip" title="Compage"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#" data-toggle="tooltip" title="Like it!"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="best" role="tabpanel" class="section-tab-item">
-                            <div class="tab-item-slider">
-                                <div class="col-xs-12 col-width">
-                                    <div class="single-product">
-                                        <div class="single-product-item">
-                                            <div class="single-product-img clearfix hover-effect">
-                                                <a href="#">
-                                                    <img class="primary-image" src="/static/customer/img/product/10.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="single-product-info clearfix">
-                                                <div class="pro-rating">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="pro-price">
-                                                    <span class="new-price">$150</span>
-                                                    <span class="old-price">$180</span>
-                                                </div>
-                                                <div class="pro-name">
-                                                    <h4><a href="#">Electria Ostma</a></h4>
-                                                </div>
-                                            </div>
-                                            <div class="wish-icon-hover text-center">
-                                                <ul>
-                                                    <li><a href="#" data-toggle="tooltip" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                                                    <li><a class="modal-view" href="#" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i></a></li>
-                                                    <li><a href="#" data-toggle="tooltip" title="Compage"><i class="fa fa-refresh"></i></a></li>
-                                                    <li><a href="#" data-toggle="tooltip" title="Like it!"><i class="fa fa-heart"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="section-button text-center">
-                    <a href='#' class='slider-button'>查看更多<i class="fa fa-angle-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- arrival end -->
-<!-- client start -->
-<div class="client-area clearfix home-two">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="section-title">
-                    <h4>我们的品牌</h4>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="client-owl">
-                <div class="col-md-12"  v-for="b in brand">
-                    <div class="single-client">
-                        <a href="#"><img :src="b.brandLogo" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="single-client">
-                        <a href="#"><img src="/static/customer/img/client/1.png" alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="section-button text-center">
-                <a href='#' class='slider-button margin-allowed'>查看更多 <i class="fa fa-angle-right"></i></a>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- client end -->
-<!-- footer start -->
-<footer class="footer-area">
-    <div class="footer-top-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-12">
-                    <div class="footer-logo text-center">
-                        <a href="customer/index"><img src="/static/customer/img/logo/footer-logo.png" alt="Jhilmil"></a>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-2 hidden-xs">
-                    <div class="footer-social text-center">
-                        <ul>
-                            <li><a href="www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="www.twitter.com" target="_blank"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="www.linkedin.com" target="_blank"><i class="fa fa-linkedin"></i></a></li>
-                            <li class="hidden-sm"><a href="www.googleplus.com" target="_blank"><i class="fa fa-google-plus"></i></a></li>
-                            <li class="hidden-sm"><a href="www.instagram.com" target="_blank"><i class="fa fa-instagram"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 hidden-xs">
-                    <div class="footer-widget-newsletter">
-                        <h4 class="newsletter">业务通讯</h4>
-                        <form action="#">
-                            <input type="text" placeholder="在这输入您的email...">
-                            <a class="submit" href="#">订阅</a>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-middle-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-6">
-                    <div class="footer-widget">
-                        <h5>Contact</h5>
-                        <div class="single-footer-contact">
-                            <div class="footer-icon">
-                                <img src="/static/customer/img/cart/1.png" alt="">
-                            </div>
-                            <div class="footer-contact-info">
-                                <p>湖南 岳阳 ,</p>
-                                <p>Glasgow, D04  89GR</p>
-                            </div>
-                        </div>
-                        <div class="single-footer-contact">
-                            <div class="footer-icon">
-                                <img src="/static/customer/img/cart/2.png" alt="">
-                            </div>
-                            <div class="footer-contact-info">
-                                <p>电话 : 17673451242</p>
-                                <p>电话 : 17673451242</p>
-                            </div>
-                        </div>
-                        <div class="single-footer-contact">
-                            <div class="footer-icon">
-                                <img src="/static/customer/img/cart/3.png" alt="">
-                            </div>
-                            <div class="footer-contact-info">
-                                <p>电子邮件 : <a href="#">984805546@qq.com</a></p>
-                                <p>网址 : <a href="http://devitems.com/">www.devitems.com</a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3">
-                    <div class="footer-widget">
-                        <h5>公司</h5>
-                        <ul>
-                            <li><i class="fa fa-circle"></i><a href="/fe/customer/index">家</a></li>
-                            <li><i class="fa fa-circle"></i><a href="/fe/customer/about-us">关于我们</a></li>
-                            <li><i class="fa fa-circle"></i><a href="/fe/customer/contact">联系我们</a></li>
-                            <li><i class="fa fa-circle"></i><a href="blog.html">我们的博客</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">支持中心</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">隐私政策</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-3 hidden-sm">
-                    <div class="footer-widget">
-                        <h5>支持</h5>
-                        <ul>
-                            <li><i class="fa fa-circle"></i><a href="#">配送信息</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">订单跟踪</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">退货</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">礼物卡</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">送货上门</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">在线支持</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-3">
-                    <div class="footer-widget">
-                        <h5>信息</h5>
-                        <ul>
-                            <li><i class="fa fa-circle"></i><a href="#">付款选项</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">运输</a></li>
-                            <li><i class="fa fa-circle"></i><a href="/fe/customer/checkout">查看</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">折扣</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">网站地图</a></li>
-                            <li><i class="fa fa-circle"></i><a href="#">服务</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 col-sm-6">
-                    <div class="copyright">
-                        <p>版权所有 @ 2016 <span><a href="http://devitems.com/">Devitems</a></span>. All right reserved. </p>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="footer-menu text-center">
-                        <nav>
-                            <ul>
-                                <li><a href="">网站地图</a></li>
-                                <li><a href="/fe/customer/contact">联系我们</a></li>
-                                <li><a href="/fe/customer/wishlist">愿望清单</a></li>
-                                <li><a href="#">通讯</a></li>
+                <div class="col-xs-12">
+                    <div class="section-tab">
+                        <div class="section-tab-menu text-left">
+                            <ul role="tablist">
+                                <li role="presentation" class="active"><a href="#new" aria-controls="new" role="tab" data-toggle="tab">新款</a></li>
+                                <li role="presentation"><a href="#featured" aria-controls="featured" role="tab" data-toggle="tab">精选</a></li>
+                                <li role="presentation"><a href="#best" aria-controls="best" role="tab" data-toggle="tab">畅销</a></li>
                             </ul>
-                        </nav>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="tab-content row">
+                            <div id="new" role="tabpanel" class="active section-tab-item">
+                                <div class="tab-item-slider">
+                                    <div class="col-xs-12 col-width">
+                                        <div class="single-product">
+                                            <div class="single-product-item">
+                                                <div class="single-product-img clearfix hover-effect">
+                                                    <a href="/fe/product-details/1">
+                                                        <img class="primary-image" src="/static/customer/img/product/1.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="single-product-info">
+                                                    <div class="pro-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                    <div class="pro-price">
+                                                        <span class="new-price">$150</span>
+                                                        <span class="old-price">$180</span>
+                                                    </div>
+                                                    <div class="pro-name">
+                                                        <h4><a href="#">Macbook pro系列 13.3寸</a></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="wish-icon-hover text-center">
+                                                    <ul>
+                                                        <li><a href="#" data-toggle="tooltip" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <li><a class="modal-view" href="#" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" title="Compage"><i class="fa fa-refresh"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" title="Like it!"><i class="fa fa-heart"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-width" v-for="p in product">
+                                        <div class="single-product">
+                                            <div class="single-product-item">
+                                                <div class="single-product-img clearfix hover-effect">
+                                                    <a href="#">
+                                                        <img v-for="pic in picture" class="primary-image" :src="pic.picUrl" alt=""
+                                                             v-if="pic.productId === p.productId && pic.picMaster === 1">
+                                                    </a>
+                                                </div>
+                                                <div class="single-product-info">
+                                                    <div class="pro-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                    <div class="pro-price">
+                                                        <span class="new-price">{{p.averageCost}}</span>
+                                                        <span class="old-price">{{p.price}}</span>
+                                                    </div>
+                                                    <div class="pro-name">
+                                                        <h4><a href="#">{{p.productName}}</a></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="wish-icon-hover text-center">
+                                                    <ul>
+                                                        <li><a href="#" data-toggle="tooltip" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <li><a class="modal-view" data-toggle="modal" @click="openModel(p)"><i class="fa fa-eye"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" title="Compage"><i class="fa fa-refresh"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" title="Like it!"><i class="fa fa-heart"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="featured" role="tabpanel" class="section-tab-item">
+                                <div class="tab-item-slider">
+                                    <div class="col-xs-12 col-width">
+                                        <div class="single-product">
+                                            <div class="single-product-item">
+                                                <div class="single-product-img clearfix hover-effect">
+                                                    <a href="#">
+                                                        <img class="primary-image" src="/static/customer/img/product/9.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="single-product-info clearfix">
+                                                    <div class="pro-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                    <div class="pro-price">
+                                                        <span class="new-price">$150</span>
+                                                        <span class="old-price">$180</span>
+                                                    </div>
+                                                    <div class="pro-name">
+                                                        <h4><a href="#">夏季短袖</a></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="wish-icon-hover text-center">
+                                                    <ul>
+                                                        <li><a href="#" data-toggle="tooltip" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <li><a class="modal-view" href="#" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" title="Compage"><i class="fa fa-refresh"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" title="Like it!"><i class="fa fa-heart"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="best" role="tabpanel" class="section-tab-item">
+                                <div class="tab-item-slider">
+                                    <div class="col-xs-12 col-width">
+                                        <div class="single-product">
+                                            <div class="single-product-item">
+                                                <div class="single-product-img clearfix hover-effect">
+                                                    <a href="#">
+                                                        <img class="primary-image" src="/static/customer/img/product/10.jpg" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="single-product-info clearfix">
+                                                    <div class="pro-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                    </div>
+                                                    <div class="pro-price">
+                                                        <span class="new-price">$150</span>
+                                                        <span class="old-price">$180</span>
+                                                    </div>
+                                                    <div class="pro-name">
+                                                        <h4><a href="#">Electria Ostma</a></h4>
+                                                    </div>
+                                                </div>
+                                                <div class="wish-icon-hover text-center">
+                                                    <ul>
+                                                        <li><a href="#" data-toggle="tooltip" title="Shopping Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                                                        <li><a class="modal-view" href="#" data-toggle="modal" data-target="#productModal"><i class="fa fa-eye"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" title="Compage"><i class="fa fa-refresh"></i></a></li>
+                                                        <li><a href="#" data-toggle="tooltip" title="Like it!"><i class="fa fa-heart"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 hidden-sm">
-                    <div class="payment text-right">
-                        <img src="/static/customer/img/payment/1.png" alt="">
+                    <div class="section-button text-center">
+                        <a href='#' class='slider-button'>查看更多<i class="fa fa-angle-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</footer>
-<!-- footer end -->
-
-<!-- QUICKVIEW PRODUCT -->
-<div id="quickview-wrapper">
-    <!-- Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <!-- arrival end -->
+    <!-- client start -->
+    <div class="client-area clearfix home-two">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="section-title">
+                        <h4>我们的品牌</h4>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <div class="modal-product">
-                        <div class="product-images">
-                            <div class="main-image images">
-                                <img v-for="pic in picture" alt="" :src="pic.picUrl"
-                                     v-if="pic.productId === modelInfo.productId && pic.picMaster === 1">
-                            </div>
-                        </div><!-- .product-images -->
-
-                        <div class="product-info">
-                            <h1>{{modelInfo.productName}}</h1>
-                            <div class="price-box">
-                                <p class="price"><span class="special-price"><span class="amount">{{modelInfo.price}}</span></span></p>
-                            </div>
-                            <a href="shop.html" class="see-all">查看更多</a>
-                            <div class="quick-add-to-cart">
-                                <form method="post" class="cart">
-                                    <div class="numbers-row">
-                                        <input type="number" id="french-hens" value="1">
-                                    </div>
-                                    <button class="single-add-to-cart-button" type="submit">加入购物车</button>
-                                </form>
-                            </div>
-                            <div class="quick-desc">
-                                {{modelInfo.descript}}
-                            </div>
-                            <div class="social-sharing">
-                                <div class="widget widget_socialsharing_widget">
-                                    <h3 class="widget-title-modal">分享这个商品</h3>
-                                    <ul class="social-icons">
-                                        <li><a target="_blank" title="Facebook" href="#" class="facebook social-icon"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a target="_blank" title="Twitter" href="#" class="twitter social-icon"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="fa fa-pinterest"></i></a></li>
-                                        <li><a target="_blank" title="Google +" href="#" class="gplus social-icon"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a target="_blank" title="LinkedIn" href="#" class="linkedin social-icon"><i class="fa fa-linkedin"></i></a></li>
-                                    </ul>
+            </div>
+            <div class="row">
+                <div class="client-owl">
+                    <div class="col-md-12"  v-for="b in brand">
+                        <div class="single-client">
+                            <a href="#"><img :src="uri+b.brandLogo"  alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="single-client">
+                            <a href="#"><img src="/static/customer/img/client/1.png" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="section-button text-center">
+                    <a href='#' class='slider-button margin-allowed'>查看更多 <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- client end -->
+    <!-- footer start -->
+    <footer class="footer-area">
+        <div class="footer-top-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="footer-logo text-center">
+                            <a href="customer/index"><img src="/static/customer/img/logo/footer-logo.png" alt="Jhilmil"></a>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-2 hidden-xs">
+                        <div class="footer-social text-center">
+                            <ul>
+                                <li><a href="www.facebook.com" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="www.twitter.com" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="www.linkedin.com" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+                                <li class="hidden-sm"><a href="www.googleplus.com" target="_blank"><i class="fa fa-google-plus"></i></a></li>
+                                <li class="hidden-sm"><a href="www.instagram.com" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 hidden-xs">
+                        <div class="footer-widget-newsletter">
+                            <h4 class="newsletter">业务通讯</h4>
+                            <form action="#">
+                                <input type="text" placeholder="在这输入您的email...">
+                                <a class="submit" href="#">订阅</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="footer-widget">
+                            <h5>Contact</h5>
+                            <div class="single-footer-contact">
+                                <div class="footer-icon">
+                                    <img src="/static/customer/img/cart/1.png" alt="">
+                                </div>
+                                <div class="footer-contact-info">
+                                    <p>湖南 岳阳 ,</p>
+                                    <p>Glasgow, D04  89GR</p>
                                 </div>
                             </div>
-                        </div><!-- .product-info -->
-                    </div><!-- .modal-product -->
-                </div><!-- .modal-body -->
-            </div><!-- .modal-content -->
-        </div><!-- .modal-dialog -->
+                            <div class="single-footer-contact">
+                                <div class="footer-icon">
+                                    <img src="/static/customer/img/cart/2.png" alt="">
+                                </div>
+                                <div class="footer-contact-info">
+                                    <p>电话 : 17673451242</p>
+                                    <p>电话 : 17673451242</p>
+                                </div>
+                            </div>
+                            <div class="single-footer-contact">
+                                <div class="footer-icon">
+                                    <img src="/static/customer/img/cart/3.png" alt="">
+                                </div>
+                                <div class="footer-contact-info">
+                                    <p>电子邮件 : <a href="#">984805546@qq.com</a></p>
+                                    <p>网址 : <a href="http://devitems.com/">www.devitems.com</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3">
+                        <div class="footer-widget">
+                            <h5>公司</h5>
+                            <ul>
+                                <li><i class="fa fa-circle"></i><a href="/fe/customer/index">家</a></li>
+                                <li><i class="fa fa-circle"></i><a href="/fe/customer/about-us">关于我们</a></li>
+                                <li><i class="fa fa-circle"></i><a href="/fe/customer/contact">联系我们</a></li>
+                                <li><i class="fa fa-circle"></i><a href="blog.html">我们的博客</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">支持中心</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">隐私政策</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 hidden-sm">
+                        <div class="footer-widget">
+                            <h5>支持</h5>
+                            <ul>
+                                <li><i class="fa fa-circle"></i><a href="#">配送信息</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">订单跟踪</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">退货</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">礼物卡</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">送货上门</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">在线支持</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-3">
+                        <div class="footer-widget">
+                            <h5>信息</h5>
+                            <ul>
+                                <li><i class="fa fa-circle"></i><a href="#">付款选项</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">运输</a></li>
+                                <li><i class="fa fa-circle"></i><a href="/fe/customer/checkout">查看</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">折扣</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">网站地图</a></li>
+                                <li><i class="fa fa-circle"></i><a href="#">服务</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="copyright">
+                            <p>版权所有 @ 2016 <span><a href="http://devitems.com/">Devitems</a></span>. All right reserved. </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="footer-menu text-center">
+                            <nav>
+                                <ul>
+                                    <li><a href="">网站地图</a></li>
+                                    <li><a href="/fe/customer/contact">联系我们</a></li>
+                                    <li><a href="/fe/customer/wishlist">愿望清单</a></li>
+                                    <li><a href="#">通讯</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="col-md-4 hidden-sm">
+                        <div class="payment text-right">
+                            <img src="/static/customer/img/payment/1.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer end -->
+
+    <!-- QUICKVIEW PRODUCT -->
+    <div id="quickview-wrapper">
+        <!-- Modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-product">
+                            <div class="product-images">
+                                <div class="main-image images">
+                                    <img v-for="pic in picture" alt="" :src="pic.picUrl"
+                                         v-if="pic.productId === modelInfo.productId && pic.picMaster === 1">
+                                </div>
+                            </div><!-- .product-images -->
+
+                            <div class="product-info">
+                                <h1>{{modelInfo.productName}}</h1>
+                                <div class="price-box">
+                                    <p class="price"><span class="special-price"><span class="amount">{{modelInfo.price}}</span></span></p>
+                                </div>
+                                <a href="shop.html" class="see-all">查看更多</a>
+                                <div class="quick-add-to-cart">
+                                    <form method="post" class="cart">
+                                        <div class="numbers-row">
+                                            <input type="number" id="french-hens" value="1">
+                                        </div>
+                                        <button class="single-add-to-cart-button" type="submit">加入购物车</button>
+                                    </form>
+                                </div>
+                                <div class="quick-desc">
+                                    {{modelInfo.descript}}
+                                </div>
+                                <div class="social-sharing">
+                                    <div class="widget widget_socialsharing_widget">
+                                        <h3 class="widget-title-modal">分享这个商品</h3>
+                                        <ul class="social-icons">
+                                            <li><a target="_blank" title="Facebook" href="#" class="facebook social-icon"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a target="_blank" title="Twitter" href="#" class="twitter social-icon"><i class="fa fa-twitter"></i></a></li>
+                                            <li><a target="_blank" title="Pinterest" href="#" class="pinterest social-icon"><i class="fa fa-pinterest"></i></a></li>
+                                            <li><a target="_blank" title="Google +" href="#" class="gplus social-icon"><i class="fa fa-google-plus"></i></a></li>
+                                            <li><a target="_blank" title="LinkedIn" href="#" class="linkedin social-icon"><i class="fa fa-linkedin"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div><!-- .product-info -->
+                        </div><!-- .modal-product -->
+                    </div><!-- .modal-body -->
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+        </div>
+        <!-- END Modal -->
     </div>
-    <!-- END Modal -->
-</div>
-<!-- END QUICKVIEW PRODUCT -->
+    <!-- END QUICKVIEW PRODUCT -->
 </div>
 
 <!-- modernizr JS

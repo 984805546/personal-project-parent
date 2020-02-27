@@ -17,7 +17,7 @@
     <input type="file" name="myfile" id="myfile" multiple="multiple"/>
     <button href="#" class="tj btn btn-info" id="upload">提交</button>
 </form>
-<a href="/file/download?filename=hh.jpeg"> 下载</a>
+<a href="/file/download?filename=41940e6e-162f-46f9-bcee-dbe6c2242509.jpg"> 下载</a>
 
 <img src="/file/download?filename=hh.jpeg"/>
 

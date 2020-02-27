@@ -16,13 +16,13 @@
     <select id="getAll" resultMap="brand">
         select brandId, brandName, telephone, brandWeb, brandLogo, brandDesc, modifiedTime
         from brand_info
-        order by brandId
+        order by brandId desc
     </select>
 
     <select id="getPageHelper" resultMap="brand">
         select brandId, brandName, telephone, brandWeb, brandLogo, brandDesc, modifiedTime
         from brand_info
-        order by brandId
+        order by brandId desc
     </select>
 
     <select id="getByName" resultMap="brand">
@@ -30,7 +30,7 @@
         select brandId, brandName, telephone, brandWeb, brandLogo, brandDesc, modifiedTime
         from brand_info
         where brandName like #{Name}
-        order by brandId
+        order by brandId desc
     </select>
 
     <insert id="insert" >

@@ -5,6 +5,10 @@ package config;/**
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.github.pagehelper.PageInterceptor;
+import com.google.code.kaptcha.Constants;
+import com.google.code.kaptcha.Producer;
+import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.google.code.kaptcha.util.Config;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -37,7 +41,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class AppConfig {
     @Value("${jdbc.username}")
-private String username;
+    private String username;
 
     @Value("${jdbc.url}")
     private String url;
@@ -73,6 +77,30 @@ private String username;
         DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
         transactionManager.setDataSource(dataSource());
         return transactionManager;
+    }
+
+    @Bean
+    public Producer captchaProducer() {
+        DefaultKaptcha captchaProducer = new DefaultKaptcha();
+        Properties properties = new Properties();
+//		设置图片长宽
+        properties.setProperty(Constants.KAPTCHA_IMAGE_WIDTH, "100");
+        properties.setProperty(Constants.KAPTCHA_IMAGE_HEIGHT, "30");
+//		设置图片字体、个数、间隔、颜色
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_SIZE, "22");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_LENGTH, "4");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "6");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_FONT_COLOR, "black");
+
+        properties.setProperty(Constants.KAPTCHA_BORDER_COLOR, "LIGHT_GRAY");
+        properties.setProperty(Constants.KAPTCHA_BACKGROUND_CLR_FROM, "WHITE");
+        properties.setProperty(Constants.KAPTCHA_NOISE_IMPL, "com.google.code.kaptcha.impl.NoNoise");
+        properties.setProperty(Constants.KAPTCHA_OBSCURIFICATOR_IMPL, "com.google.code.kaptcha.impl.ShadowGimpy");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_STRING, "0123456789");
+        properties.setProperty(Constants.KAPTCHA_SESSION_CONFIG_KEY, "checkCode");
+        Config config = new Config(properties);
+        captchaProducer.setConfig(config);
+        return captchaProducer;
     }
 
     private org.apache.ibatis.session.Configuration getConfiguration(){

@@ -55,12 +55,12 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="javascript:;" data-toggle="dropdown"><i class="icon icon-user"></i> 管理员 <span class="caret"></span></a>
+                            <a id="user" href="javascript:;" data-toggle="dropdown" data="${user.id}"><i class="icon icon-user"></i> ${user.username} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">资料设置</a></li>
                                 <li><a href="#">清除缓存</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">注销</a></li>
+                                <li><a href="/user/logout">注销</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -151,16 +151,16 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr v-for='(list,index) in info.list'>
+                            <tr v-for='(value,index) in info.list'>
                                 <td>{{++index}}</td>
-                                <td v-for='product in product' v-if="product.productId === list.productId" >
+                                <td v-for='product in product' v-if="product.productId === value.productId" >
                                     {{product.productName}}
                                 </td>
                                 <td>
-                                    <img :src="list.picUrl" width="50px" height="50px" class="img-rounded">
+                                    <img :src="uri+value.picUrl" width="50px" height="50px" class="img-rounded">
                                 </td>
                                 <td>
-                                    <div class="switch" v-if="list.picMaster === 1">
+                                    <div class="switch" v-if="value.picMaster === 1">
                                         <input type="checkbox" disabled checked="checked">
                                         <label>是</label>
                                     </div>
@@ -170,11 +170,11 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href='#' @click="details(list)"> >>>查看图片详情 </a>
+                                    <a href='#' @click="details(value)"> >>>查看图片详情 </a>
                                 </td>
                                 <td>
-                                    <a href='#' class='delete btn btn-xs btn-danger' @click="deleteRow(list.productPicId)">注销</a>
-                                    <a href='#' class='edit btn btn-xs btn-primary' @click="update(list)">编辑</a>
+                                    <a href='#' class='delete btn btn-xs btn-danger' @click="deleteRow(value.productPicId)">注销</a>
+                                    <a href='#' class='edit btn btn-xs btn-primary' @click="update(value)">编辑</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -222,11 +222,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="myfile" class="col-sm-2 control-label">上传图片</label>
+                            <label for="myFile" class="col-sm-2 control-label">上传图片</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="file" name="myfile" id="myfile" multiple="multiple"
-                                           class="form-control" @change="changeImage($event)"/>
+                                    <input type="file" name="myFile" id="myFile" multiple="multiple"
+                                           class="form-control" @change="changeImage($event)" :value="picUrl"/>
                                 </div>
                                 <div id="imgDiv" style="display: none">
                                     <img src="" id="image" style="width: 230px;height: 200px">

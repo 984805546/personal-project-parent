@@ -37,7 +37,8 @@ $(function(){
             searchThree:0,
             searchFour:0,
         },
-        mounted: function () {
+        mounted:
+            function () {
                 start(this.pageNum, this.pageSize),
                 axios.get('/brand/all', {
                     responseType: "json"
@@ -55,7 +56,7 @@ $(function(){
                     console.log(error);
                     alert("未查询到结果！");
                 });
-        },
+            },
         methods:{
             search: function (){
                 axios.get('/product/search', {
@@ -153,7 +154,6 @@ $(function(){
                         method:"POST",
                         url:"/product/insert",
                         data: productInfo,
-                        cache:false,
                         processData:false,
                         contentType:false,
                         responseType:"json"
@@ -163,7 +163,6 @@ $(function(){
                         method:"POST",
                         url:"/product/update",
                         data: productInfo,
-                        cache:false,
                         processData:false,
                         contentType:false,
                         responseType:"json"

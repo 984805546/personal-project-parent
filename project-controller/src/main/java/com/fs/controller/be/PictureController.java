@@ -31,8 +31,6 @@ public class PictureController {
     @Autowired
     private ProductPicInfoService picInfoService;
 
-    public static final String FILE_DIRECTORY = "/Users/fangchengfangcheng/Pictures/projectImages";
-
     @RequestMapping("/all")
     public ResponseVO all() {
         List<ProductPicInfo> productInfos = picInfoService.getAll();
@@ -51,16 +49,14 @@ public class PictureController {
 
     @PostMapping("/insert")
     public ResponseVO insert(@Valid ProductPicInfo picInfo, BindingResult bindingResult,
-                             MultipartFile myfile) {
+                             MultipartFile myFile) {
         if (bindingResult.hasErrors()) {
             return ResponseVO.builder().code("500").msg("未按要求填写").data(false).build();
         } else {
-            picInfo.setPicUrl(upload(myfile));
             picInfoService.insert(picInfo);
             if (picInfo.getPicMaster() > 0) {
                 picInfoService.updateMaster(picInfo);
             }
-//            System.out.println(picInfo.getProductPicId());
             return ResponseVO.builder().code("200").msg("添加成功").data(true).build();
         }
     }
@@ -87,26 +83,10 @@ public class PictureController {
     @GetMapping("/search")
     public ResponseVO search(@RequestParam(value = "pageNum", defaultValue = "1", required = false) int pageNum,
                              @RequestParam(value = "pageSize", required = false, defaultValue = "5") int pageSize,
-                             String productName,Integer picMaster) {
-        List<ProductPicInfo> picInfos = picInfoService.getFilter(pageNum,pageSize,productName,picMaster);
+                             Integer productId, String productName,Integer picMaster) {
+        List<ProductPicInfo> picInfos = picInfoService.getFilter(pageNum,pageSize,productId,productName,picMaster);
         PageInfo pageInfo = new PageInfo(picInfos,5);
         ResponseVO responseVO = ResponseVO.builder().code("200").msg("success").data(pageInfo).build();
         return responseVO;
-    }
-
-
-    public String upload(MultipartFile myfile) {
-        String fileName = myfile.getOriginalFilename();
-        String exl = fileName.substring(fileName.lastIndexOf("."));
-        fileName = UUID.randomUUID().toString() + exl;
-        String path = FILE_DIRECTORY + File.separator + fileName;
-        File f = new File(path);
-        try {
-            myfile.transferTo(f);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
-        return fileName;
     }
 }

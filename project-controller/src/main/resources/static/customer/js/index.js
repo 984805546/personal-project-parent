@@ -7,6 +7,7 @@ $(function(){
             category: [],
             picture: [],
             modelInfo: [],
+            uri:"/file/download?filename="
         },
         mounted: function () {
             axios.get('/product/all', {

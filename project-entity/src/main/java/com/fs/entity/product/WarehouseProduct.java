@@ -3,8 +3,10 @@ package com.fs.entity.product;/**
  * @create: 2019/12/03 09:33
  */
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @program personal-project-parent
@@ -13,6 +15,8 @@ import lombok.Data;
  * @create: 2019/12/03 09:33
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class WarehouseProduct {
     //'商品库存ID'
     private Integer wpId;
@@ -26,9 +30,6 @@ public class WarehouseProduct {
     private String modifiedTime;
 
     private ProductInfo product;
-
-    public WarehouseProduct() {
-    }
 
     public WarehouseProduct(Integer wpId, Integer productId, Integer currentCnt, Integer lockCnt, String modifiedTime) {
         this.wpId = wpId;
